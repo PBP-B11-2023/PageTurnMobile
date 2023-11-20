@@ -1,6 +1,6 @@
 # PageTurnMobile
 
-- Nama Anggota Kelompok
+Nama Anggota Kelompok
 - Muhammad Irfan Firmansyah
 - Arya Kusuma Daniswara
 - Fern Khairunnisha Adelia Aufar
