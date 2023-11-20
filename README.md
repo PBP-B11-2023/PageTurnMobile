@@ -8,7 +8,7 @@
 - Rifdah Nabilah Rahma
 - Faiz Abdurrachman
 
-## Deskripsi Aplikaso
+## Deskripsi Aplikasi
 
 Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna untuk mengakses ratusan e-book dalam satu platform, menghemat waktu dalam mencari dan mengelola buku-buku mereka. Pengguna dapat melihat status peminjaman buku (wishlist, proses peminjaman, atau sudah dikembalikan), memiliki rak buku virtual, dan memberikan ulasan/peringkat untuk buku yang telah dibaca. Selain itu, aplikasi ini juga menampilkan rekomendasi buku yang disesuaikan dengan minat pengguna.
 Nama Anggota Kelompok
