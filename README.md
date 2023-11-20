@@ -27,36 +27,32 @@ Nama Anggota Kelompok
 
 ## Peran Pengguna
 
-1. Pengguna yang Belum Login (Guest):
+1. **Pengguna yang Belum Login (Guest):** <br>
+    - **Autentikasi:** <br/>
+      Pengguna dapat melakukan login jika sudah memiliki akun untuk masuk ke aplikasi. Jika belum memiliki akun, pengguna dapat membuat akun baru dengan membuat username dan password sehingga dapat melakukan login untuk masuk ke aplikasi.
 
-- Autentikasi:
+2. **Pengguna yang Sudah Login (Member):** <br>
+    - **Homepage:** <br/>
+      Member dapat melihat homepage yang berisi informasi terkait akun, dan juga button untuk mengakses ke fitur-fitur lainnya.
+    - **Autentikasi:** <br>
+      Member dapat melakukan logout dari aplikasi.
+    - **Katalog Buku:** <br>
+      Member dapat membuka katalog buku untuk melihat informasi dari buku-buku yang tersedia.
+    - **Request Buku:** <br>
+      Member dapat merequest buku yang akan ditambahkan sebagai wishlist jika buku tersebut belum tersedia.
+    - **Peminjaman Buku:** <br>
+      Member dapat melakukan peminjaman buku jika buku tersebut tersedia. Kemudian, member dapat mengembalikan buku tersebut jika sudah selesai dibaca.
+    - **Review Buku:** <br>
+      Member dapat melihat review-review dari suatu buku. Member juga dapat mereview buku yang mereka sudah selesai baca. 
+    - **Koleksi Buku Favorit:** <br>
+      Member dapat melihat koleksi buku-buku favorit.   
+    - **Laporan buku rusak:** <br>
+      Member dapat membuat laporan buku rusak, jika buku yang mereka pinjam rusak.
 
-2. Pengguna dapat melakukan login jika sudah memiliki akun untuk masuk ke aplikasi. Jika belum memiliki akun, pengguna dapat membuat akun baru dengan membuat username dan password sehingga dapat melakukan login untuk masuk ke aplikasi.
-Pengguna yang Sudah Login (Member):
-
-- Homepage:
-Member dapat melihat homepage yang berisi informasi terkait akun, dan juga button untuk mengakses ke fitur-fitur lainnya.
-- Autentikasi:
-Member dapat melakukan logout dari aplikasi.
-- Katalog Buku:
-Member dapat membuka katalog buku untuk melihat informasi dari buku-buku yang tersedia.
-- Request Buku:
-Member dapat merequest buku yang akan ditambahkan sebagai wishlist jika buku tersebut belum tersedia.
-- Peminjaman Buku:
-Member dapat melakukan peminjaman buku jika buku tersebut tersedia. Kemudian, member dapat mengembalikan buku tersebut jika sudah selesai dibaca.
-- Review Buku:
-Member dapat melihat review-review dari suatu buku. Member juga dapat mereview buku yang mereka sudah selesai baca.
-- Koleksi Buku Favorit:
-Member dapat melihat koleksi buku-buku favorit.
-- Laporan buku rusak:
-Member dapat membuat laporan buku rusak, jika buku yang mereka pinjam rusak.
-
-3. Admin:
-Admin dapat membuka semua yang dapat dibuka oleh member. Tetapi, admin mempunyai satu peran tambahan:
-- Katalog Buku:
-Admin dapat menambahkan buku baru ke dalam daftar buku.
-
-
+3. **Admin:** <br>
+   Admin dapat membuka semua yang dapat dibuka oleh member. Tetapi, admin mempunyai satu peran tambahan:
+     - **Katalog Buku:** <br>
+       Admin dapat menambahkan buku baru ke dalam daftar buku.
 
 ## Alur Integrasi 
 Alur Pengintegrasian dengan Web Service untuk Terhubung dengan Aplikasi Web yang Sudah dibuat saat Proyek Tengah Semester
