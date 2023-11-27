@@ -65,4 +65,4 @@ Alur Pengintegrasian dengan Web Service untuk Terhubung dengan Aplikasi Web yang
 
 
 ## Berita Acara
-Link = berita acara: https://docs.google.com/spreadsheets/d/14ZFo0cpXrDy6iEv0GsTosSeeLtI29T_vBQ87AqTEwMA/edit?usp=sharing
+Link berita acara: https://docs.google.com/spreadsheets/d/14ZFo0cpXrDy6iEv0GsTosSeeLtI29T_vBQ87AqTEwMA/edit?usp=sharing
