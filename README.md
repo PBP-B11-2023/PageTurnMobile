@@ -1,5 +1,6 @@
 # PageTurnMobile
 
+## Nama Anggota Kelompok
 
 - Muhammad Irfan Firmansyah
 - Arya Kusuma Daniswara
@@ -10,19 +11,17 @@
 
 ## Deskripsi Aplikasi
 
-Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna untuk mengakses ratusan e-book dalam satu platform, menghemat waktu dalam mencari dan mengelola buku-buku mereka. Pengguna dapat melihat status peminjaman buku (wishlist, proses peminjaman, atau sudah dikembalikan), memiliki rak buku virtual, dan memberikan ulasan/peringkat untuk buku yang telah dibaca. Selain itu, aplikasi ini juga menampilkan rekomendasi buku yang disesuaikan dengan minat pengguna.
-Nama Anggota Kelompok
+Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna untuk mengakses ratusan e-book dalam satu platform, menghemat waktu dalam mencari dan mengelola buku-buku mereka. Pengguna dapat melihat homepage yang berisi rekomendasi buku berdasarkan banyak peminjaman dari buku tersebut. Terdapat pula katalog buku yang berisikan daftar semua buku beserta informasinya. Admin dapat menambahkan buku ke dalam katalog. Pengguna juga dapat merequest buku yang ingin ditambahkan. pengguna juga dapat melakukan peminjaman terhadap buku, dan mengembalikannya. Buku yang telah dipinjam dapat direview dan juga dilaporkan apabila terdapat kerusakan.
 
 ## Modul Aplikasi
 
 ### Daftar Modul
 - Modul Authentikasi mengimplementasikan user dapat Register akun baru dan Login dengan akun yang sudah didaftarkan.
-- Modul Homepage mengimplementasikan halaman home yang menampilkan semua daftar modul yang ada di dalam aplikasi. : Faiz
-- Modul Katalog Buku yang mengimplementasikan informasi dari setiap buku (Nama buku, Penulis, Rating, Genre, Tahun terbit) : Arya
+- Modul Homepage megimplementasikan sebuah halaman homepage yang menjadi landing page para user dan menampilkan koleksi buku favorit yang paling sering dipinjam : Faiz 
+- Modul Katalog Buku yang mengimplementasikan informasi dari setiap buku (Nama buku, Penulis, Rating, Genre, Tahun terbit, dll) : Arya
 - Modul Request Buku yang mengimplementasikan request buku yang ingin di pinjam namun tidak terdapat di katalog : Fern
 - Modul Peminjaman Buku yang mengimplementasikan Buku yang ingin dipinjam atau dikembalikan : Irfan
 - Modul Review/ulasan Buku yang mengimplementasikan review dari pembaca buku : Irsyad
-- Modul Koleksi Buku Favorit yang mengimplementasikan kumpulan buku-buku yang sering di pinjam : Faiz
 - Modul Laporan buku rusak yang mengimplementasikan detail informasi buku yang rusak (nama buku dan alasan rusak) : Rifdah
 
 ## Peran Pengguna
