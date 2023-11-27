@@ -24,7 +24,7 @@ Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna
 - Modul Review/ulasan Buku yang mengimplementasikan review dari pembaca buku : Irsyad
 - Modul Laporan buku rusak yang mengimplementasikan detail informasi buku yang rusak (nama buku dan alasan rusak) : Rifdah
 
-## Peran Pengguna
+### Peran Pengguna
 
 1. **Pengguna yang Belum Login (Guest):** <br>
     - **Autentikasi:** <br/>
@@ -53,7 +53,7 @@ Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna
      - **Katalog Buku:** <br>
        Admin dapat menambahkan buku baru ke dalam daftar buku.
 
-## Alur Integrasi 
+### Alur Integrasi 
 Alur Pengintegrasian dengan Web Service untuk Terhubung dengan Aplikasi Web yang Sudah dibuat saat Proyek Tengah Semester
 
 1. Website yang telah terlebih dahulu dideploy disusun memiliki backend yang dapat menampilkan JSON data-data terkait
