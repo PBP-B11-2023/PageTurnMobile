@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
+import 'package:pageturn_mobile/apps/Request/screens/request_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,8 @@ class LeftDrawer extends StatelessWidget {
                   SizedBox(height: 35),
                   Image(
                     width: 1000,
-                    image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
+                    image: NetworkImage(
+                        "https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
                   ),
                 ],
               ),
@@ -54,6 +56,17 @@ class LeftDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PeminjamanPage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.question_mark_rounded),
+            title: const Text('Request Buku'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RequestPage(),
                   ));
             },
           ),
