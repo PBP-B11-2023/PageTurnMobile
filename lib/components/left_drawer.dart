@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/rafli.dart';
+import 'package:pageturn_mobile/apps/Homepage/menu.dart';
+import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -11,34 +12,25 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Drawer(
+      backgroundColor: Color(0xFFffecd4),
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  'The Vault',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          Container(
+            height: 200, // Set your desired height
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF282626),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 35),
+                  Image(
+                    width: 1000,
+                    image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
                   ),
-                ),
-                Padding(padding: EdgeInsets.all(13)),
-                Text(
-                  "Catat koleksi albummu di sini!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           ListTile(
@@ -49,7 +41,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ReturnBookPage(),
+                    builder: (context) => MyHomePage(),
                   ));
             },
           ),
@@ -61,7 +53,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ReturnBookPage(),
+                    builder: (context) => const PeminjamanPage(),
                   ));
             },
           ),

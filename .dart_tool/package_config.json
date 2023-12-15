@@ -293,10 +293,10 @@
       "name": "pageturn_mobile",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-12-10T14:20:22.831794Z",
+  "generated": "2023-12-15T06:20:32.285758Z",
   "generator": "pub",
   "generatorVersion": "3.2.0"
 }

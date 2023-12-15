@@ -8,17 +8,19 @@ import 'package:pageturn_mobile/components/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class ReturnBookPage extends StatefulWidget {
-  const ReturnBookPage({Key? key}) : super(key: key);
+class PeminjamanPage extends StatefulWidget {
+  const PeminjamanPage({Key? key}) : super(key: key);
 
   @override
-  _ReturnBookPageState createState() => _ReturnBookPageState();
+  _PeminjamanPageState createState() => _PeminjamanPageState();
 }
 
-class _ReturnBookPageState extends State<ReturnBookPage> {
+class _PeminjamanPageState extends State<PeminjamanPage> {
+  int _selectedIndex = 0;
   bool _isSearching = false;
   TextEditingController _searchController = TextEditingController();
   List<Book> _booksList = [];
+  List<int> _selectedBooks = [];
   String _query = "";
   List<String> _selectedGenres = [];
   List<MultiSelectItem<String>> _genresItems = [];
@@ -35,13 +37,12 @@ class _ReturnBookPageState extends State<ReturnBookPage> {
   }
 
   Future<List<Book>> fetchBooks(CookieRequest request) async {
-    print(_query);
     var queryParameters = {
       'search': _query,
       'genres': _selectedGenres,
     };
-    var uri =
-        Uri.http('10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
+    var uri = Uri.http(
+        '10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -50,6 +51,7 @@ class _ReturnBookPageState extends State<ReturnBookPage> {
         listBooks.add(Book.fromJson(d));
       }
     }
+    listBooks.sort((a, b) => a.fields.name.compareTo(b.fields.name));
     setState(() {
       _booksList = listBooks;
     });
@@ -101,20 +103,24 @@ class _ReturnBookPageState extends State<ReturnBookPage> {
     });
     fetchBooks(context.read<CookieRequest>());
   }
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     Widget searchBar = _isSearching
         ? TextField(
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            cursorColor: Colors.white,
             controller: _searchController,
             autofocus: true,
             decoration: InputDecoration(
               hintText: 'Search books...',
+              hintStyle: TextStyle(color: Colors.white),
               border: InputBorder.none,
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: Icon(Icons.search, color: Colors.white),
               suffixIcon: IconButton(
-                icon: Icon(Icons.clear),
+                icon: Icon(Icons.clear, color: Colors.white),
                 onPressed: () {
                   _searchController.clear();
                   _updateSearchResults('');
@@ -184,75 +190,128 @@ class _ReturnBookPageState extends State<ReturnBookPage> {
       drawer: LeftDrawer(),
       appBar: AppBar(
         title: Text(
-          'PageTurn',
+          'Peminjaman',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24.0, // Larger font size for the title
           ),
         ),
-        backgroundColor: const Color(0xFFC9C5BA),
-        foregroundColor: Colors.black,
+        backgroundColor: const Color(0xFF282626),
+        foregroundColor: Colors.white,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(58.0),
           child: Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsets.only(left: 16.0, right: 16, bottom: 10.0),
             child: searchBar,
           ),
         ),
       ),
       body: Column(
         children: [
-          SizedBox(height: 20),
           // Books list
           Expanded(
             child: ListView.builder(
               itemCount: _booksList.length,
               itemBuilder: (context, index) {
                 Book book = _booksList[index];
-                return ListTile(
-                  title: Text(book.fields.name,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  subtitle:
-                      Text(book.fields.author, style: TextStyle(fontSize: 14)),
-                  leading: Image.network(book.fields.image, fit: BoxFit.cover),
+                bool isSelected = _selectedBooks.contains(book.pk);
+
+                return InkWell(
+                  onTap: () {
+                    if (!book.fields.isDipinjam){
+                      setState(() {
+                        if (isSelected) {
+                          _selectedBooks.remove(book.pk);
+                        } else {
+                          _selectedBooks.add(book.pk);
+                        }
+                      });
+                    }
+                  },
+                  child: Container(
+                    color: book.fields.isDipinjam ? Colors.red : isSelected ? Colors.blueGrey : Colors.white,
+                    child: ListTile(
+                      title: Text(book.fields.name,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text(book.fields.author, style: TextStyle(fontSize: 14)),
+                      leading: Image.network(
+                        book.fields.image,
+                        fit: BoxFit.cover,
+                        width: 50,
+                        height: 200,
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 50,
-          color: Colors.orange,
-          child: Center(
-            child: TextButton(
-              onPressed: () {
-                // Aksi untuk tombol "Mulai Pinjam Buku"
-              },
-              child: const Text(
-                'Mulai Pinjam Buku',
-                style: TextStyle(color: Colors.white),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          // Your existing BottomAppBar
+          BottomAppBar(
+            child: Container(
+              height: 50,
+              color: Color(0xffc06c34),
+              child: Center(
+                child: TextButton(
+                  onPressed: () async {
+                    final response = await request.post(
+                        "http://10.0.2.2:8000/peminjaman/get-selected/",
+                        {
+                          'booklist': jsonEncode(_selectedBooks),
+                        }
+                    );
+                    _selectedBooks.clear();
+                  },
+                  child: const Text(
+                    'Pinjam Buku',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          // BottomNavigationBar
+          BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.library_books),
+                label: 'Peminjaman',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.book_online),
+                label: 'Pengembalian',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.history),
+                label: 'History Peminjaman',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+              switch (index) {
+                case 0:
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PeminjamanPage()));
+                  break;
+                case 1:
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PeminjamanPage()));
+                  break;
+                case 2:
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PeminjamanPage()));
+                  break;
+              }
+            },
+          ),
+        ],
       ),
     );
   }
-}
-
-Widget _buildFilterChip(String label) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 4),
-    child: ChoiceChip(
-      label: Text(label),
-      onSelected: (bool selected) {
-        // Handle chip selection
-      },
-      selected: false,
-    ),
-  );
 }
