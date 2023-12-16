@@ -176,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return; // Hentikan fungsi jika password kosong
                                 }
                                 final response = await request.post(
-                                    "http://10.0.2.2:8000/auth/register/", {
+                                    "http://localhost:8000/auth/register/", {
                                   'username': username,
                                   'password1': password1,
                                   'password2': password2,

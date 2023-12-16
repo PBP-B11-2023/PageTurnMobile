@@ -26,7 +26,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
   List<MultiSelectItem<String>> _genresItems = [];
 
   Future<void> _loadGenres() async {
-    var url = Uri.parse('http://10.0.2.2:8000/katalog/get-genres/');
+    var url = Uri.parse('http://localhost:8000/katalog/get-genres/');
     var response = await http.get(url);
     var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
     List<String> genres = List<String>.from(jsonResponse['genres']);
@@ -42,7 +42,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
       'genres': _selectedGenres,
     };
     var uri = Uri.http(
-        '10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
+        'localhost:8000', '/katalog/get-books-genre/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -261,7 +261,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
                 child: TextButton(
                   onPressed: () async {
                     final response = await request.post(
-                        "http://10.0.2.2:8000/peminjaman/get-selected/",
+                        "http://localhost:8000/peminjaman/get-selected/",
                         {
                           'booklist': jsonEncode(_selectedBooks),
                         }

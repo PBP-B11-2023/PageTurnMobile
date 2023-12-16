@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
+import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/add_laporan.dart';
+import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/daftar_laporan.dart';
+import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/halaman_awal.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -58,12 +61,23 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Laporan Buku Rusak'),
+            onTap: () {
+                // Route menu ke halaman produk
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HalamanLaporan()),
+                );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () async {
               try {
                 final response =
-                    await request.logout("http://10.0.2.2:8000/auth/logout/");
+                    await request.logout("http://localhost:8000/auth/logout/");
 
                 String message = response["message"];
                 if (response['status']) {
