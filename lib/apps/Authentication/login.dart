@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/register.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
+import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
