@@ -17,7 +17,7 @@ class LeftDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            height: 200, // Set your desired height
+            height: 190, // Set your desired height
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Color(0xFF282626),
@@ -46,8 +46,8 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('List nih'),
+            leading: const Icon(Icons.import_contacts),
+            title: const Text('Peminjaman Buku'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
               Navigator.push(

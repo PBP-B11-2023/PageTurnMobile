@@ -88,18 +88,32 @@ class _PengembalianPageState extends State<PengembalianPage> {
     await showDialog(
       context: context,
       builder: (ctx) {
-        return MultiSelectDialog(
-          items: items,
-          initialValue: _selectedGenres,
-          onConfirm: (values) {
-            setState(() {
-              _selectedGenres = List<String>.from(values);
-              fetchPeminjaman(context.read<CookieRequest>());
-            });
-          },
+        return Theme(
+          data: Theme.of(context).copyWith(
+            dialogBackgroundColor: Colors.white, // Ensuring dialog background is white
+            colorScheme: ColorScheme.dark( // Pastikan skema warna gelap
+              primary: Colors.white, // Warna utama dalam dialog
+              onPrimary: Colors.white, // Warna untuk teks dan ikon pada primaryColor
+              surface: Colors.black87, // Warna permukaan komponen
+              onSurface: Colors.white, // Warna teks dan ikon pada surface
+              // secondary: Colors.white, // Warna aksen atau sekunder
+            ),
+          ),
+          child: MultiSelectDialog(
+            backgroundColor: Colors.white, // Set your desired background color here
+            items: items,
+            initialValue: _selectedGenres,
+            onConfirm: (values) {
+              setState(() {
+                _selectedGenres = List<String>.from(values);
+                fetchPeminjaman(context.read<CookieRequest>());
+              });
+            },
+          ),
         );
       },
     );
+
   }
 
   void _startSearch() {
@@ -124,18 +138,20 @@ class _PengembalianPageState extends State<PengembalianPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Instruksi'),
+              backgroundColor: Color(0xff282626),
+              surfaceTintColor: Colors.transparent,
+              title: const Text('Instruksi',style: TextStyle(color: Colors.white),),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Text('Klik buku yang ingin dikembalikan'),
+                    Text('Klik buku yang ingin dikembalikan',style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),
               actions: <Widget>[
                 // Cancel button
                 TextButton(
-                  child: const Text('OK'),
+                  child: const Text('OK',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -267,18 +283,30 @@ class _PengembalianPageState extends State<PengembalianPage> {
         children: [
           // Books list
           Expanded(
-            child: _booksList.isEmpty
-                ? Center(
-              child: Text(
-                "Kamu tidak sedang\nmeminjam buku apapun.",
-                textAlign: TextAlign.center, // Align text to center
-                style: TextStyle(
-                  fontSize: 28, // Adjust the font size as needed
-                  fontWeight: FontWeight.bold, // Bold text
-                  color: Colors.grey, // Optional: for grey text color
+            child: _booksList.isEmpty ?
+              _selectedGenres.length > 0 && _selectedGenres.length < _genresItems.length ?
+                Center(
+                  child: Text(
+                  "Kamu tidak sedang\nmeminjam buku apapun\ndengan genre tersebut.",
+                    textAlign: TextAlign.center, // Align text to center
+                    style: TextStyle(
+                      fontSize: 28, // Adjust the font size as needed
+                      fontWeight: FontWeight.bold, // Bold text
+                      color: Colors.grey, // Optional: for grey text color
+                    ),
+                  ),
+                )
+                  : Center(
+                child: Text(
+                  "Kamu tidak sedang\nmeminjam buku apapun.",
+                  textAlign: TextAlign.center, // Align text to center
+                  style: TextStyle(
+                    fontSize: 28, // Adjust the font size as needed
+                    fontWeight: FontWeight.bold, // Bold text
+                    color: Colors.grey, // Optional: for grey text color
+                  ),
                 ),
-              ),
-            )
+              )
                 : ListView.builder(
               itemCount: _booksList.length,
               itemBuilder: (context, index) {
@@ -338,109 +366,87 @@ class _PengembalianPageState extends State<PengembalianPage> {
                 List<String> selectedBookNames = _selectedBooks.map((bookId) {
                   return _booksList.firstWhere((book) => book.pk == bookId).fields.name;
                 }).toList();
-                if (_selectedBooks.isEmpty) {
-                  // Show a simple alert dialog if no books are selected
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Belum Memilih Buku'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[
-                              Text('Pilihlah minimal satu buku untuk dipinjam!'),
-                            ],
-                          ),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-                else {
-                  await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Konfirmasi Pengembalian'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[
-                              Text('Buku yang dikembalikan:'),
-                              ...selectedBookNames.map((name) => Text('- $name')),
-                              Text(''),
-                              Text('Batas Pengembalian: ${_dipinjam?.fields.tglBatas != null ? DateFormat('yyyy-MM-dd').format(_dipinjam!.fields.tglBatas) : 'N/A'}'),
 
-                            ],
-                          ),
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Color(0xff282626),
+                      surfaceTintColor: Colors.transparent,
+                      title: const Text('Konfirmasi Pengembalian',style: TextStyle(color: Colors.white),),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('Buku yang ingin dikembalikan:',style: TextStyle(color: Colors.white),),
+                            SizedBox(height: 5,),
+                            ...selectedBookNames.map((name) => Text('- $name',style: TextStyle(color: Colors.white),)),
+                            SizedBox(height: 5,),
+                            Text('Batas Pengembalian: ${_dipinjam?.fields.tglBatas != null ? DateFormat('yyyy-MM-dd').format(_dipinjam!.fields.tglBatas) : 'N/A'}',style: TextStyle(color: Colors.white),),
+
+                          ],
                         ),
-                        actions: <Widget>[
-                          // Cancel button
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // This will close the dialog
-                            },
-                          ),
-                          // OK button
-                          TextButton(
-                            child: const Text('OK'),
-                            onPressed: () async {
-                              // Implement your logic to process the loan here
-                              final response = await request.post(
-                                  "http://10.0.2.2:8000/peminjaman/return-book-flutter/${_dipinjam?.pk}/",
-                                  {
-                                    'durasi' : '',
-                                    'booklist': '',
-                                  }
-                              );
-                              // Then close the dialog
-                              Navigator.of(context).pop();
+                      ),
+                      actions: <Widget>[
+                        // Cancel button
+                        TextButton(
+                          child: const Text('Cancel',style: TextStyle(color: Colors.white),),
+                          onPressed: () {
+                            Navigator.of(context).pop(); // This will close the dialog
+                          },
+                        ),
+                        // OK button
+                        TextButton(
+                          child: const Text('OK',style: TextStyle(color: Colors.white),),
+                          onPressed: () async {
+                            // Implement your logic to process the loan here
+                            final response = await request.post(
+                                "http://10.0.2.2:8000/peminjaman/return-book-flutter/${_dipinjam?.pk}/",
+                                {
+                                  'durasi' : '',
+                                  'booklist': '',
+                                }
+                            );
+                            // Then close the dialog
+                            Navigator.of(context).pop();
+                            setState(() {
                               _selectedBooks.clear();
-                              await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Status'),
-                                      content: SingleChildScrollView(
-                                        child: ListBody(
-                                          children: <Widget>[
-                                            Text('${response['message']}'),
-                                          ],
-                                        ),
+                            });
+                            await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: Color(0xff282626),
+                                    surfaceTintColor: Colors.transparent,
+                                    title: const Text('Status',style: TextStyle(color: Colors.white),),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text('${response['message']}',style: TextStyle(color: Colors.white),),
+                                        ],
                                       ),
-                                      actions: <Widget>[
-                                        // Cancel button
-                                        TextButton(
-                                          child: const Text('OK'),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PengembalianPage())); // This will close the dialog
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  }
-                              );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => PeminjamanPage()),
-                              );
-                            },
-                          ),
-                        ],
-                      );
-
-                    },
-                  );
-                }
-
+                                    ),
+                                    actions: <Widget>[
+                                      // Cancel button
+                                      TextButton(
+                                        child: const Text('OK',style: TextStyle(color: Colors.white),),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PengembalianPage()));
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PeminjamanPage()),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: Container(
                 height: 50,
@@ -459,6 +465,7 @@ class _PengembalianPageState extends State<PengembalianPage> {
           ),
           // BottomNavigationBar
           BottomNavigationBar(
+            backgroundColor: Color(0xFF282626),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.library_books),
@@ -474,6 +481,11 @@ class _PengembalianPageState extends State<PengembalianPage> {
               ),
             ],
             currentIndex: _selectedIndex,
+            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.white,
+            selectedLabelStyle: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
             onTap: (int index) {
               setState(() {
                 _selectedIndex = index;

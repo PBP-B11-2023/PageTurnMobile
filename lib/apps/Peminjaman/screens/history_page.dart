@@ -90,19 +90,32 @@ class _HistoryPageState extends State<HistoryPage> {
     await showDialog(
       context: context,
       builder: (ctx) {
-        return MultiSelectDialog(
-          backgroundColor: Color(0xff282428),
-          items: items,
-          initialValue: _selectedGenres,
-          onConfirm: (values) {
-            setState(() {
-              _selectedGenres = List<String>.from(values);
-              fetchPeminjaman(context.read<CookieRequest>());
-            });
-          },
+        return Theme(
+          data: Theme.of(context).copyWith(
+            dialogBackgroundColor: Colors.white, // Ensuring dialog background is white
+            colorScheme: ColorScheme.dark( // Pastikan skema warna gelap
+              primary: Colors.white, // Warna utama dalam dialog
+              onPrimary: Colors.white, // Warna untuk teks dan ikon pada primaryColor
+              surface: Colors.black87, // Warna permukaan komponen
+              onSurface: Colors.white, // Warna teks dan ikon pada surface
+              // secondary: Colors.white, // Warna aksen atau sekunder
+            ),
+          ),
+          child: MultiSelectDialog(
+            backgroundColor: Colors.white, // Set your desired background color here
+            items: items,
+            initialValue: _selectedGenres,
+            onConfirm: (values) {
+              setState(() {
+                _selectedGenres = List<String>.from(values);
+                fetchPeminjaman(context.read<CookieRequest>());
+              });
+            },
+          ),
         );
       },
     );
+
   }
 
   void _startSearch() {
@@ -127,19 +140,31 @@ class _HistoryPageState extends State<HistoryPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: Color(0xff282428),
-              title: const Text('Instruksi'),
+              backgroundColor: Color(0xff282626),
+              surfaceTintColor: Colors.transparent,
+              title: const Text(
+                  'Instruksi',
+                style: TextStyle(color: Colors.white),
+              ),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Text('Klik buku untuk melihat detail.'),
+                    Text(
+                        'Klik buku untuk melihat detail peminjaman.',
+                      style: TextStyle(
+                          color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
               ),
               actions: <Widget>[
-                // Cancel button
                 TextButton(
-                  child: const Text('OK'),
+                  child: const Text(
+                      'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -271,10 +296,22 @@ class _HistoryPageState extends State<HistoryPage> {
         children: [
           // Books list
           Expanded(
-            child: _booksList.isEmpty
-                ? Center(
+            child: _booksList.isEmpty ?
+            _selectedGenres.length > 0 && _selectedGenres.length < _genresItems.length ?
+            Center(
               child: Text(
-                "Kamu tidak sedang\nmeminjam buku apapun.",
+                "Kamu belum pernah\nmeminjam buku apapun\ndengan genre tersebut.",
+                textAlign: TextAlign.center, // Align text to center
+                style: TextStyle(
+                  fontSize: 28, // Adjust the font size as needed
+                  fontWeight: FontWeight.bold, // Bold text
+                  color: Colors.grey, // Optional: for grey text color
+                ),
+              ),
+            )
+                : Center(
+              child: Text(
+                "Kamu belum pernah\nmeminjam buku apapun.",
                 textAlign: TextAlign.center, // Align text to center
                 style: TextStyle(
                   fontSize: 28, // Adjust the font size as needed
@@ -309,7 +346,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          backgroundColor: Color(0xdf282626),
+                          backgroundColor: Color(0xff282626),
                           surfaceTintColor: Colors.transparent,
                           title: Text(
                             '${book.fields.name}',
@@ -390,13 +427,14 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
           ),
 
-          SizedBox(height: 50),
+          SizedBox(height: 55),
         ],
       ),
       bottomSheet: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           BottomNavigationBar(
+            backgroundColor: Color(0xff282428),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.library_books),
@@ -412,6 +450,11 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ],
             currentIndex: _selectedIndex,
+            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.white,
+            selectedLabelStyle: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
             onTap: (int index) {
               setState(() {
                 _selectedIndex = index;
