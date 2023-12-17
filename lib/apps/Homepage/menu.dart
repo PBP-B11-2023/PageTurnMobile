@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> fetchFavoriteBooks() async {
     final response = await http.get(
       Uri.parse(
-          'http://10.0.2.2:8000/get_favourite_books/'), // Replace with your Django API endpoint
+          'http://127.0.0.1:8000/get_favourite_books/'), // Replace with your Django API endpoint
     );
 
     if (response.statusCode == 200) {
@@ -42,9 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
       currentBookIndex = (currentBookIndex + 1) % favoriteBooks.length;
     });
   }
+
   void prevBook() {
     setState(() {
-      currentBookIndex = (currentBookIndex + favoriteBooks.length - 1) % favoriteBooks.length;
+      currentBookIndex =
+          (currentBookIndex + favoriteBooks.length - 1) % favoriteBooks.length;
     });
   }
 
@@ -55,13 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF010101),
         title: Text(
-            'Page Turn',
-            style: TextStyle(color: Colors.white),
+          'Page Turn',
+          style: TextStyle(color: Colors.white),
         ),
         iconTheme: IconThemeData(
           color: Colors.white, // Ganti warna sesuai keinginan Anda
         ),
-
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -184,9 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              SizedBox(
-                  height:
-                      20), // Increase the sp
+              SizedBox(height: 20), // Increase the sp
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -202,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text('Next Book'),
                   )
                 ],
-              )// ace between the card and the button
+              ) // ace between the card and the button
               ,
               SizedBox(
                   height:

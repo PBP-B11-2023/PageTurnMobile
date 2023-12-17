@@ -30,7 +30,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
   List<MultiSelectItem<String>> _genresItems = [];
 
   Future<void> _loadGenres() async {
-    var url = Uri.parse('http://10.0.2.2:8000/katalog/get-genres/');
+    var url = Uri.parse('http://127.0.0.1:8000/katalog/get-genres/');
     var response = await http.get(url);
     var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
     List<String> genres = List<String>.from(jsonResponse['genres']);
@@ -46,7 +46,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
       'genres': _selectedGenres,
     };
     var uri = Uri.http(
-        '10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
+        '127.0.0.1:8000', '/katalog/get-books-genre/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -57,9 +57,12 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
     }
     listBooks.sort((a, b) {
       if (a.fields.isDipinjam == b.fields.isDipinjam) {
-        return a.fields.name.compareTo(b.fields.name); // Alphabetical sorting if `isDipinjam` status is same
+        return a.fields.name.compareTo(b.fields
+            .name); // Alphabetical sorting if `isDipinjam` status is same
       }
-      return a.fields.isDipinjam ? 1 : -1; // Books with `isDipinjam` as false come first
+      return a.fields.isDipinjam
+          ? 1
+          : -1; // Books with `isDipinjam` as false come first
     });
     setState(() {
       _booksList = listBooks;
@@ -128,8 +131,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
                 ),
               ],
             );
-          }
-      );
+          });
     });
   }
 
@@ -139,6 +141,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
     });
     fetchBooks(context.read<CookieRequest>());
   }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -255,19 +258,18 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
 
                 return InkWell(
                   onTap: () {
-                    if (!book.fields.isDipinjam){
+                    if (!book.fields.isDipinjam) {
                       setState(() {
                         if (isSelected) {
                           _selectedBooks.remove(book.pk);
                         } else {
-                          if (_selectedBooks.length >= 10){
+                          if (_selectedBooks.length >= 10) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               content:
-                              Text("Hanya bisa meminjam maksimal 10 buku!"),
+                                  Text("Hanya bisa meminjam maksimal 10 buku!"),
                             ));
-                          }
-                          else{
+                          } else {
                             _selectedBooks.add(book.pk);
                           }
                         }
@@ -275,11 +277,17 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
                     }
                   },
                   child: Container(
-                    color: book.fields.isDipinjam ? Color(0xFFF08080) : isSelected ? Color(0xFF87CEFA): Colors.white,
+                    color: book.fields.isDipinjam
+                        ? Color(0xFFF08080)
+                        : isSelected
+                            ? Color(0xFF87CEFA)
+                            : Colors.white,
                     child: ListTile(
                       title: Text(book.fields.name,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      subtitle: Text(book.fields.author, style: TextStyle(fontSize: 14)),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text(book.fields.author,
+                          style: TextStyle(fontSize: 14)),
                       leading: Image.network(
                         book.fields.image,
                         fit: BoxFit.cover,
@@ -293,8 +301,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
             ),
           ),
           SizedBox(height: 55),
-          if (_selectedBooks.isNotEmpty)
-            SizedBox(height: 90),
+          if (_selectedBooks.isNotEmpty) SizedBox(height: 90),
         ],
       ),
       bottomSheet: Column(
@@ -302,141 +309,147 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
         children: <Widget>[
           // Your existing BottomAppBar
           if (_selectedBooks.isNotEmpty)
-          BottomAppBar(
-            child: InkWell(
-              onTap: () async {
-                // Retrieve the list of selected books
-                List<String> selectedBookNames = _selectedBooks.map((bookId) {
-                  return _booksList.firstWhere((book) => book.pk == bookId).fields.name;
-                }).toList();
-                if (_selectedBooks.isEmpty) {
-                  // Show a simple alert dialog if no books are selected
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Belum Memilih Buku'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[
-                              Text('Pilihlah minimal satu buku untuk dipinjam!'),
-                            ],
+            BottomAppBar(
+              child: InkWell(
+                onTap: () async {
+                  // Retrieve the list of selected books
+                  List<String> selectedBookNames = _selectedBooks.map((bookId) {
+                    return _booksList
+                        .firstWhere((book) => book.pk == bookId)
+                        .fields
+                        .name;
+                  }).toList();
+                  if (_selectedBooks.isEmpty) {
+                    // Show a simple alert dialog if no books are selected
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Belum Memilih Buku'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(
+                                    'Pilihlah minimal satu buku untuk dipinjam!'),
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-                else {
-                  await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      String loanDays = '';
-                      return AlertDialog(
-                        title: const Text('Konfirmasi Peminjaman'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[
-                              Text('Buku yang dipinjam:'),
-                              ...selectedBookNames.map((name) => Text('- $name')),
-                              TextField(
-                                onChanged: (value) {
-                                  loanDays = value;
-                                },
-                                decoration: InputDecoration(
-                                  hintText: 'Ketik durasi peminjaman (1-14 hari)',
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        String loanDays = '';
+                        return AlertDialog(
+                          title: const Text('Konfirmasi Peminjaman'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text('Buku yang dipinjam:'),
+                                ...selectedBookNames
+                                    .map((name) => Text('- $name')),
+                                TextField(
+                                  onChanged: (value) {
+                                    loanDays = value;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        'Ketik durasi peminjaman (1-14 hari)',
+                                  ),
+                                  keyboardType: TextInputType.number,
                                 ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: <Widget>[
-                          // Cancel button
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // This will close the dialog
-                            },
-                          ),
-                          // OK button
-                          TextButton(
-                            child: const Text('OK'),
-                            onPressed: () async {
-                              // Implement your logic to process the loan here
-                              final response = await request.post(
-                                  "http://10.0.2.2:8000/peminjaman/get-selected/",
-                                  {
-                                    'durasi' : loanDays,
-                                    'booklist': jsonEncode(_selectedBooks),
-                                  }
-                              );
-                              // Then close the dialog
-                              Navigator.of(context).pop();
-                              await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Status'),
-                                      content: SingleChildScrollView(
-                                        child: ListBody(
-                                          children: <Widget>[
-                                            Text('${response['message']}'),
-                                          ],
+                          actions: <Widget>[
+                            // Cancel button
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(); // This will close the dialog
+                              },
+                            ),
+                            // OK button
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () async {
+                                // Implement your logic to process the loan here
+                                final response = await request.post(
+                                    "http://127.0.0.1:8000/peminjaman/get-selected/",
+                                    {
+                                      'durasi': loanDays,
+                                      'booklist': jsonEncode(_selectedBooks),
+                                    });
+                                // Then close the dialog
+                                Navigator.of(context).pop();
+                                await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Status'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text('${response['message']}'),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      actions: <Widget>[
-                                        // Cancel button
-                                        TextButton(
-                                          child: const Text('OK'),
-                                          onPressed: () {
-                                            bool status = response['status'];
-                                            print(status);
-                                            if(status){
-                                              _selectedBooks.clear();
-                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PengembalianPage()));
-                                            } else{
-                                              Navigator.of(context).pop();
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  }
-                              );
-                            },
-                          ),
-                        ],
-                      );
-
-                    },
-                  );
-                }
-
-              },
-              child: Container(
-                height: 50,
-                color: Color(0xffc06c34),
-                child: Center(
-                  child: const Text(
-                    'Pinjam Buku',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                                        actions: <Widget>[
+                                          // Cancel button
+                                          TextButton(
+                                            child: const Text('OK'),
+                                            onPressed: () {
+                                              bool status = response['status'];
+                                              print(status);
+                                              if (status) {
+                                                _selectedBooks.clear();
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PengembalianPage()));
+                                              } else {
+                                                Navigator.of(context).pop();
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  color: Color(0xffc06c34),
+                  child: Center(
+                    child: const Text(
+                      'Pinjam Buku',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
           // BottomNavigationBar
           BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -463,10 +476,14 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
                   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PeminjamanPage()));
                   break;
                 case 1:
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PengembalianPage()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PengembalianPage()));
                   break;
                 case 2:
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HistoryPage()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => HistoryPage()));
                   break;
               }
             },
