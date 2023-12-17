@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
+import 'package:pageturn_mobile/apps/Reviewbuku/screens/listreview.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,18 @@ class LeftDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PeminjamanPage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_shopping_cart),
+            title: const Text('Review Buku'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReviewPage(),
                   ));
             },
           ),
