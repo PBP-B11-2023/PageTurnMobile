@@ -33,6 +33,7 @@ class _BookFormPageState extends State<BookFormPage> {
   String _description = "";
 
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -285,44 +286,46 @@ class _BookFormPageState extends State<BookFormPage> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       // benerin biar jadi models
-
-                      // Book newItem = Book(_name, _author, _rating, _review,
-                      //     _price, _year, _genre, _image, _description);
-                      // _booksList.add(newItem); // Simpan item ke dalam list
-
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Buku berhasil tersimpan'),
-                            content: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Nama: $_name'),
-                                  Text('Penulis: $_author'),
-                                  Text('Tahun: $_year'),
-                                ],
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => KatalogPage()));
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                      final response = await request.postJson(
+                          "http://127.0.0.1:8000/katalog/create-flutter/",
+                          jsonEncode(<String, String>{
+                            'name': _name,
+                            'author': _author.toString(),
+                            'rating': _rating.toString(),
+                            'review': _review.toString(),
+                            'price': _price.toString(),
+                            'year': _year.toString(),
+                            'genre': _genre,
+                            'image': _image,
+                            'description': _description,
+                            // TODO: Sesuaikan field data sesuai dengan aplikasimu
+                          }));
+                      if (response['status'] == 'success') {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Buku baru berhasil disimpan!"),
+                        ));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KatalogPage()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                        ));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KatalogPage()),
+                        );
+                      }
                     }
                   },
                   child: const Text(
