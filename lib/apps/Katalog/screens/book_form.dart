@@ -45,7 +45,6 @@ class _BookFormPageState extends State<BookFormPage> {
         foregroundColor: Colors.white,
       ),
       // TODO: Tambahkan drawer yang sudah dibuat di sini
-      drawer: const LeftDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -289,12 +288,17 @@ class _BookFormPageState extends State<BookFormPage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       // benerin biar jadi models
-                      // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+
+                      // Book newItem = Book(_name, _author, _rating, _review,
+                      //     _price, _year, _genre, _image, _description);
+                      // _booksList.add(newItem); // Simpan item ke dalam list
+                      print(269);
                       final response = await request.postJson(
                           "http://127.0.0.1:8000/katalog/create-flutter/",
                           jsonEncode(<String, String>{
                             'name': _name,
-                            'author': _author.toString(),
+                            'author': _author,
+                            'year': _year.toString(),
                             'rating': _rating.toString(),
                             'review': _review.toString(),
                             'price': _price.toString(),
@@ -304,6 +308,7 @@ class _BookFormPageState extends State<BookFormPage> {
                             'description': _description,
                             // TODO: Sesuaikan field data sesuai dengan aplikasimu
                           }));
+
                       if (response['status'] == 'success') {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
@@ -320,11 +325,6 @@ class _BookFormPageState extends State<BookFormPage> {
                           content:
                               Text("Terdapat kesalahan, silakan coba lagi."),
                         ));
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KatalogPage()),
-                        );
                       }
                     }
                   },

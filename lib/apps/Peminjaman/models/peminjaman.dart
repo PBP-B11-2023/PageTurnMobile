@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-List<Peminjaman> peminjamanFromJson(String str) =>
-    List<Peminjaman>.from(json.decode(str).map((x) => Peminjaman.fromJson(x)));
+List<Peminjaman> peminjamanFromJson(String str) => List<Peminjaman>.from(json.decode(str).map((x) => Peminjaman.fromJson(x)));
 
-String peminjamanToJson(List<Peminjaman> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String peminjamanToJson(List<Peminjaman> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Peminjaman {
   String model;
@@ -22,16 +20,16 @@ class Peminjaman {
   });
 
   factory Peminjaman.fromJson(Map<String, dynamic> json) => Peminjaman(
-        model: json["model"],
-        pk: json["pk"],
-        fields: Fields.fromJson(json["fields"]),
-      );
+    model: json["model"],
+    pk: json["pk"],
+    fields: Fields.fromJson(json["fields"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "model": model,
-        "pk": pk,
-        "fields": fields.toJson(),
-      };
+    "model": model,
+    "pk": pk,
+    "fields": fields.toJson(),
+  };
 }
 
 class Fields {
@@ -54,24 +52,22 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        user: json["user"],
-        book: json["book"],
-        tglDipinjam: DateTime.parse(json["tgl_dipinjam"]),
-        durasiPeminjaman: json["durasi_peminjaman"],
-        tglBatas: DateTime.parse(json["tgl_batas"]),
-        tglDikembalikan: json["tgl_dikembalikan"],
-        isReturned: json["is_returned"],
-      );
+    user: json["user"],
+    book: json["book"],
+    tglDipinjam: DateTime.parse(json["tgl_dipinjam"]),
+    durasiPeminjaman: json["durasi_peminjaman"],
+    tglBatas: DateTime.parse(json["tgl_batas"]),
+    tglDikembalikan: json["tgl_dikembalikan"],
+    isReturned: json["is_returned"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "user": user,
-        "book": book,
-        "tgl_dipinjam":
-            "${tglDipinjam.year.toString().padLeft(4, '0')}-${tglDipinjam.month.toString().padLeft(2, '0')}-${tglDipinjam.day.toString().padLeft(2, '0')}",
-        "durasi_peminjaman": durasiPeminjaman,
-        "tgl_batas":
-            "${tglBatas.year.toString().padLeft(4, '0')}-${tglBatas.month.toString().padLeft(2, '0')}-${tglBatas.day.toString().padLeft(2, '0')}",
-        "tgl_dikembalikan": tglDikembalikan,
-        "is_returned": isReturned,
-      };
+    "user": user,
+    "book": book,
+    "tgl_dipinjam": "${tglDipinjam.year.toString().padLeft(4, '0')}-${tglDipinjam.month.toString().padLeft(2, '0')}-${tglDipinjam.day.toString().padLeft(2, '0')}",
+    "durasi_peminjaman": durasiPeminjaman,
+    "tgl_batas": "${tglBatas.year.toString().padLeft(4, '0')}-${tglBatas.month.toString().padLeft(2, '0')}-${tglBatas.day.toString().padLeft(2, '0')}",
+    "tgl_dikembalikan": tglDikembalikan,
+    "is_returned": isReturned,
+  };
 }

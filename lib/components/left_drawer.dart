@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pageturn_mobile/apps/Katalog/screens/katalog.dart';
+import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class LeftDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            height: 200, // Set your desired height
+            height: 190, // Set your desired height
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Color(0xFF282626),
@@ -28,8 +28,7 @@ class LeftDrawer extends StatelessWidget {
                   SizedBox(height: 35),
                   Image(
                     width: 1000,
-                    image: NetworkImage(
-                        "https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
+                    image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
                   ),
                 ],
               ),
@@ -60,8 +59,8 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('List nih'),
+            leading: const Icon(Icons.import_contacts),
+            title: const Text('Peminjaman Buku'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
               Navigator.push(
@@ -77,7 +76,7 @@ class LeftDrawer extends StatelessWidget {
             onTap: () async {
               try {
                 final response =
-                    await request.logout("http://127.0.0.1:8000/auth/logout/");
+                    await request.logout("http://10.0.2.2:8000/auth/logout/");
 
                 String message = response["message"];
                 if (response['status']) {

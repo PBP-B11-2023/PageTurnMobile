@@ -20,6 +20,7 @@ class KatalogPage extends StatefulWidget {
 
 class _KatalogPageState extends State<KatalogPage> {
   final _formKey = GlobalKey<FormState>();
+  String? _role;
   int _selectedIndex = 0;
   bool _isSearching = false;
   TextEditingController _searchController = TextEditingController();
@@ -38,6 +39,11 @@ class _KatalogPageState extends State<KatalogPage> {
       _genresItems =
           genres.map((genre) => MultiSelectItem<String>(genre, genre)).toList();
     });
+  }
+
+  Future<void> fetchUser(CookieRequest request) async {
+    final response = await request.get('http://127.0.0.1:8000/auth/get-user/');
+    _role = response['role'];
   }
 
   Future<List<Book>> fetchBooks(CookieRequest request) async {
@@ -106,6 +112,7 @@ class _KatalogPageState extends State<KatalogPage> {
   void initState() {
     super.initState();
     _loadGenres();
+    fetchUser(context.read<CookieRequest>());
     fetchBooks(context.read<CookieRequest>());
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
@@ -289,36 +296,19 @@ class _KatalogPageState extends State<KatalogPage> {
               },
             ),
           ),
-          SizedBox(height: 55),
-          if (_selectedBooks.isNotEmpty) SizedBox(height: 90),
+          if (_role == 'admin') SizedBox(height: 50),
         ],
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          // Your existing BottomAppBar
-          if (_selectedBooks.isNotEmpty)
-            BottomAppBar(
-              child: InkWell(onTap: () async {
-                // Retrieve the list of selected books
-                List<String> selectedBookNames = _selectedBooks.map((bookId) {
-                  return _booksList
-                      .firstWhere((book) => book.pk == bookId)
-                      .fields
-                      .name;
-                }).toList();
-              }),
-            ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your desired action when the button is pressed
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => BookFormPage()));
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: _role == 'admin'
+          ? FloatingActionButton(
+              onPressed: () {
+                // Add your desired action when the button is pressed
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => BookFormPage()));
+              },
+              child: Icon(Icons.add),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
