@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/register.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/rafli.dart';
+import 'package:pageturn_mobile/apps/Homepage/menu.dart';
+import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -139,11 +140,10 @@ class _LoginPageState extends State<LoginPage> {
                                 String password = _passwordController.text;
 
                                 final response = await request.login(
-                                    "http://10.0.2.2:8000/auth/login/",
-                                    {
-                                      'username': username,
-                                      'password': password,
-                                    });
+                                    "http://10.0.2.2:8000/auth/login/", {
+                                  'username': username,
+                                  'password': password,
+                                });
 
                                 if (request.loggedIn) {
                                   String message = response['message'];
@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ReturnBookPage()),
+                                        builder: (context) => MyHomePage()),
                                   );
                                   ScaffoldMessenger.of(context)
                                     ..hideCurrentSnackBar()

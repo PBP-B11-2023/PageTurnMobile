@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/rafli.dart';
+import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -176,27 +176,43 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return; // Hentikan fungsi jika password kosong
                                 }
                                 final response = await request.post(
-                                    "http://10.0.2.2:8000/auth/register/",
-                                    {
-                                      'username': username,
-                                      'password1': password1,
-                                      'password2': password2,
-                                    });
-
-                                if (request.loggedIn) {
+                                    "http://10.0.2.2:8000/auth/register/", {
+                                  'username': username,
+                                  'password1': password1,
+                                  'password2': password2,
+                                });
+                                bool status = response['status'];
+                                if (status) {
+                                  _usernameController.clear();
+                                  _password1Controller.clear();
+                                  _password2Controller.clear();
                                   String message = response['message'];
                                   String uname = response['username'];
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text('Register Berhasil'),
+                                      content: Text(response['message']),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text('OK'),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ReturnBookPage()),
+                                        builder: (context) => LoginApp()),
                                   );
-                                  ScaffoldMessenger.of(context)
-                                    ..hideCurrentSnackBar()
-                                    ..showSnackBar(SnackBar(
-                                        content: Text(
-                                            "$message Berhasil membuat akun dengan username: $uname.")));
+
                                 } else {
+                                  _usernameController.clear();
+                                  _password1Controller.clear();
+                                  _password2Controller.clear();
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
