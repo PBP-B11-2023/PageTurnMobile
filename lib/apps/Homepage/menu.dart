@@ -54,9 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: LeftDrawer(),
       appBar: AppBar(
         backgroundColor: Color(0xFF010101),
-        title: Text(
-            'Page Turn',
-            style: TextStyle(color: Colors.white),
+        title: Image(
+          width: 130,
+          image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
         ),
         iconTheme: IconThemeData(
           color: Colors.white, // Ganti warna sesuai keinginan Anda
@@ -84,13 +84,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              SizedBox(
-                  height:
-                      40), // Increase the space between the image and the card
+
               if (favoriteBooks.isNotEmpty)
                 Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'Buku-buku favorit',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.only(
-                      top: 40, left: 16, right: 16), // Increase top padding
+                      top: 20, left: 16, right: 16), // Increase top padding
                   child: Card(
                     color: Color(
                         0xFF010101), // Set the background color of the Card
@@ -100,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+
                           Image.network(
                             favoriteBooks[currentBookIndex][
                                 'image'], // Use 'image' for the cover image URL
@@ -120,12 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
-                                ),
-                                Text(
-                                  favoriteBooks[currentBookIndex]['price']
-                                      .toString(), // Use 'price' for the book price
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.white),
                                 ),
                                 SizedBox(height: 16),
                                 Container(
