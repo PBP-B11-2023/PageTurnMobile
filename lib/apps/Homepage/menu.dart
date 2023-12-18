@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> fetchFavoriteBooks() async {
     final response = await http.get(
       Uri.parse(
-          'http://10.0.2.2:8000/get_favourite_books/'), // Replace with your Django API endpoint
+          'https://pageturn-b11-tk.pbp.cs.ui.ac.id/get_favourite_books/'), // Replace with your Django API endpoint
     );
 
     if (response.statusCode == 200) {
