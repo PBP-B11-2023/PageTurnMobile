@@ -31,6 +31,13 @@ class _BookFormPageState extends State<BookFormPage> {
   String _genre = "";
   String _image = "";
   String _description = "";
+  String _url = "";
+
+  Widget testImage(String url) {
+    // Di dalam fungsi ini, Anda bisa membuat dan mengonfigurasi widget sesuai kebutuhan
+    return Image.network(url,
+        height: 150);
+  }
 
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -248,6 +255,13 @@ class _BookFormPageState extends State<BookFormPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return "Image URL tidak boleh kosong!";
+                      }
+                      try {
+                        setState(() {
+                          _url = value;
+                        });
+                      } catch (e) {
+                        return "Image URL tidak valid!";
                       }
                       return null;
                     },

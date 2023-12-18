@@ -15,8 +15,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    super.initState();
     fetchFavoriteBooks();
+    super.initState();
   }
 
   Future<void> fetchFavoriteBooks() async {
@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void nextBook() {
+
     setState(() {
       currentBookIndex = (currentBookIndex + 1) % favoriteBooks.length;
     });
@@ -84,8 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
-              if (favoriteBooks.isNotEmpty)
+                if(favoriteBooks.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
@@ -97,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+              if(favoriteBooks.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(
                       top: 20, left: 16, right: 16), // Increase top padding
@@ -109,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-
                           Image.network(
                             favoriteBooks[currentBookIndex][
                                 'image'], // Use 'image' for the cover image URL
@@ -191,6 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                   height:
                       20), // Increase the sp
+              if(favoriteBooks.isNotEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

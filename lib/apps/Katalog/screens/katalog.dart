@@ -250,8 +250,18 @@ class _KatalogPageState extends State<KatalogPage> {
                           content: SingleChildScrollView(
                             child: Column(
                               children: [
-                                Image.network(book.fields.image,
-                                    height: 150), // Set desired image height
+                                Image.network(
+                                    book.fields.image,
+                                    height: 150,
+                                    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                      // Handle rendering errors
+                                      return Image.network(
+                                        'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
+                                        fit: BoxFit.cover,
+                                        height: 150,
+                                      );
+                                    },
+                                ), // Set desired image height
                                 Text(book.fields.description),
                               ],
                             ),
@@ -287,6 +297,15 @@ class _KatalogPageState extends State<KatalogPage> {
                         fit: BoxFit.cover,
                         width: 50,
                         height: 200,
+                        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                          // Handle rendering errors
+                          return Image.network(
+                            'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
+                            fit: BoxFit.cover,
+                            width: 50,
+                            height: 200,
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -301,7 +320,7 @@ class _KatalogPageState extends State<KatalogPage> {
       floatingActionButton: _role == 'admin' ? FloatingActionButton(
         onPressed: () {
           // Add your desired action when the button is pressed
-          Navigator.pushReplacement(
+          Navigator.push(
               context, MaterialPageRoute(builder: (context) => BookFormPage()));
         },
         child: Icon(Icons.add),
