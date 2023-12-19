@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, sort_child_properties_last
+
 import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,7 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -45,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
         children: <Widget>[
           // Gambar latar belakang
           Image.network(
-            'https://s3-alpha-sig.figma.com/img/502e/0650/87fa6759b71b572610d86429ffd40cb3?Expires=1702857600&Signature=KE0LbXjFHJ3WqB4Vf779maVUX3IJRzV-Y~KgkNS9bFW5bVzoOIhjPO-tffOY9GuXVK9ff3eKLMQM1XE84mtarg4aPE4sihAQaH3Qp~9K685NyZdsg0pgVQR-vzQtz69tZfP6n-fSJHNGbC9phJqJfj2VIEUw8P6NlSuCkk-LBLVpfaCfOK~6sO3d3k~mMNhGJuWl~aYc-Y~241pjoM5EC0YooMnoSwLHi2ix5gvlzk64gmqmk0Sd7n2XkY25il9PYwPkBx1qlyiGYfen4fMalMGZblIQoUvf3EX5983NLwcWS7X2cQlYQHqWNbvcd6KcYj56Ise~V3qkfkRB~XSv4A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+            'https://cdn.discordapp.com/attachments/1049115719306051644/1186216037990019133/87fa6759b71b572610d86429ffd40cb3.png?ex=659270c6&is=657ffbc6&hm=57888655c4d0604932cb6bc1f74293a72181458e8b5092d362f7e12e80a123bb&',
             height: double.infinity,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -64,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
           // Konten formulir login
           Center(
             // Center digunakan untuk memusatkan Container
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width *
                   0.85, // Container mengambil 85% lebar layar
               child: Column(
@@ -85,11 +87,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       controller: _usernameController,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Username",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -102,12 +105,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       obscureText: true,
                       controller: _password1Controller,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -120,12 +124,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       obscureText: true,
                       controller: _password2Controller,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Confirm Password",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -138,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   // _buildTextField(label: 'Password', isPassword: true),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Column(
                     mainAxisSize: MainAxisSize
                         .min, // Mengambil ukuran minimum yang dibutuhkan oleh anak-anaknya
@@ -159,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (username.isEmpty) {
                                   // Tampilkan pesan error untuk username
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Username tidak boleh kosong")),
                                   );
@@ -169,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (password1.isEmpty) {
                                   // Tampilkan pesan error untuk password
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Password tidak boleh kosong")),
                                   );
@@ -186,8 +191,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   _usernameController.clear();
                                   _password1Controller.clear();
                                   _password2Controller.clear();
-                                  String message = response['message'];
-                                  String uname = response['username'];
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
@@ -206,9 +209,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginApp()),
+                                        builder: (context) => const LoginApp()),
                                   );
-
                                 } else {
                                   _usernameController.clear();
                                   _password1Controller.clear();
@@ -230,8 +232,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   );
                                 }
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
                                     horizontal: 8.0,
                                     vertical: 8.0), // Penyesuaian padding
                                 child: Text(
@@ -242,10 +244,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary:
-                                    Colors.orange, // Warna background button
-                                onPrimary:
-                                    Colors.white, // Warna foreground button
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.orange, // Warna foreground button
                               ),
                             ),
                           ],
@@ -258,17 +259,17 @@ class _RegisterPageState extends State<RegisterPage> {
                           alignment: Alignment.center,
                           child: RichText(
                             text: TextSpan(
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white, // Gaya default untuk teks
                               ),
                               children: <TextSpan>[
-                                TextSpan(
+                                const TextSpan(
                                   text:
                                       "Already have an account? ", // Teks biasa
                                 ),
                                 TextSpan(
                                   text: 'Login',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors
                                         .orange, // Gaya untuk teks yang dapat diklik
                                   ),

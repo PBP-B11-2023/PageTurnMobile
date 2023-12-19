@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
+
 import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/register.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/rafli.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           // Gambar latar belakang
           Image.network(
-            'https://s3-alpha-sig.figma.com/img/502e/0650/87fa6759b71b572610d86429ffd40cb3?Expires=1702857600&Signature=KE0LbXjFHJ3WqB4Vf779maVUX3IJRzV-Y~KgkNS9bFW5bVzoOIhjPO-tffOY9GuXVK9ff3eKLMQM1XE84mtarg4aPE4sihAQaH3Qp~9K685NyZdsg0pgVQR-vzQtz69tZfP6n-fSJHNGbC9phJqJfj2VIEUw8P6NlSuCkk-LBLVpfaCfOK~6sO3d3k~mMNhGJuWl~aYc-Y~241pjoM5EC0YooMnoSwLHi2ix5gvlzk64gmqmk0Sd7n2XkY25il9PYwPkBx1qlyiGYfen4fMalMGZblIQoUvf3EX5983NLwcWS7X2cQlYQHqWNbvcd6KcYj56Ise~V3qkfkRB~XSv4A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+            'https://cdn.discordapp.com/attachments/1049115719306051644/1186216037990019133/87fa6759b71b572610d86429ffd40cb3.png?ex=659270c6&is=657ffbc6&hm=57888655c4d0604932cb6bc1f74293a72181458e8b5092d362f7e12e80a123bb&',
             height: double.infinity,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -65,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           // Konten formulir login
           Center(
             // Center digunakan untuk memusatkan Container
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width *
                   0.85, // Container mengambil 85% lebar layar
               child: Column(
@@ -139,8 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                                 String username = _usernameController.text;
                                 String password = _passwordController.text;
 
-                                final response = await request.login(
-                                    "http://10.0.2.2:8000/auth/login/", {
+                                final response = await request
+                                    .login("http://10.0.2.2:8000/auth/login/", {
                                   'username': username,
                                   'password': password,
                                 });
@@ -188,10 +190,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary:
-                                    Colors.orange, // Warna background button
-                                onPrimary:
-                                    Colors.white, // Warna foreground button
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.orange, // Warna foreground button
                               ),
                             ),
                           ],
