@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
+import 'package:pageturn_mobile/apps/Katalog/screens/katalog.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pageturn_mobile/apps/Reviewbuku/screens/pageawal.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -38,10 +40,22 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Halaman Utama'),
             // Bagian redirection ke MyHomePage
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => MyHomePage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text('Katalog'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const KatalogPage(),
                   ));
             },
           ),
@@ -54,6 +68,18 @@ class LeftDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PeminjamanPage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_shopping_cart),
+            title: const Text('Review Buku'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HalamanPertama(),
                   ));
             },
           ),

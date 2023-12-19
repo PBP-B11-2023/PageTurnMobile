@@ -64,6 +64,8 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
     setState(() {
       _booksList = listBooks;
     });
+
+
     return listBooks;
   }
 

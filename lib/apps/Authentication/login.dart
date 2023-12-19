@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           // Gambar latar belakang
           Image.network(
-            'https://s3-alpha-sig.figma.com/img/502e/0650/87fa6759b71b572610d86429ffd40cb3?Expires=1702857600&Signature=KE0LbXjFHJ3WqB4Vf779maVUX3IJRzV-Y~KgkNS9bFW5bVzoOIhjPO-tffOY9GuXVK9ff3eKLMQM1XE84mtarg4aPE4sihAQaH3Qp~9K685NyZdsg0pgVQR-vzQtz69tZfP6n-fSJHNGbC9phJqJfj2VIEUw8P6NlSuCkk-LBLVpfaCfOK~6sO3d3k~mMNhGJuWl~aYc-Y~241pjoM5EC0YooMnoSwLHi2ix5gvlzk64gmqmk0Sd7n2XkY25il9PYwPkBx1qlyiGYfen4fMalMGZblIQoUvf3EX5983NLwcWS7X2cQlYQHqWNbvcd6KcYj56Ise~V3qkfkRB~XSv4A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+            'https://cdn.discordapp.com/attachments/1049115719306051644/1186216037990019133/87fa6759b71b572610d86429ffd40cb3.png?ex=659270c6&is=657ffbc6&hm=57888655c4d0604932cb6bc1f74293a72181458e8b5092d362f7e12e80a123bb&',
             height: double.infinity,
             width: double.infinity,
             fit: BoxFit.cover,
