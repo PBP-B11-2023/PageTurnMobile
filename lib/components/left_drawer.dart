@@ -5,6 +5,7 @@ import 'package:pageturn_mobile/apps/Katalog/screens/katalog.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pageturn_mobile/apps/Reviewbuku/screens/pageawal.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -67,6 +68,18 @@ class LeftDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PeminjamanPage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_shopping_cart),
+            title: const Text('Review Buku'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HalamanPertama(),
                   ));
             },
           ),
