@@ -18,7 +18,7 @@ class HalamanLaporan extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 78, 52, 16),
+        backgroundColor: const Color(0xFF282626),
         foregroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(

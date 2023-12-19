@@ -32,7 +32,7 @@ class _LaporanFormState extends State<LaporanForm> {
             'Laporan Buku',
           ),
         ),
-        backgroundColor: Colors.indigo,
+        backgroundColor: const Color(0xFF282626),
         foregroundColor: Colors.white,
       ),
       body: Form(
