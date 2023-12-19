@@ -28,7 +28,7 @@ class _ReviewFormState extends State<ReviewForm> {
                 'Form Tambah Review',
               ),
             ),
-            backgroundColor: Colors.indigo,
+            backgroundColor: Color(0xffc06c34),
             foregroundColor: Colors.white,
           ),
           // TODO: Tambahkan drawer yang sudah dibuat di sini
@@ -99,7 +99,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                 // Kirim ke Django dan tunggu respons
                                 // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                                 final response = await request.postJson(
-                                "http://localhost:8000/create-flutter/",
+                                "http://localhost:8000/review/create-flutter/",
                                 jsonEncode(<String, String>{
                                     'name': _name,
                                     'description': _review,
