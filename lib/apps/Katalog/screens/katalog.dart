@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, unused_field, unused_import, unused_local_variable, library_private_types_in_public_api, prefer_final_fields, unused_element, sort_child_properties_last
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -40,17 +40,19 @@ class _KatalogPageState extends State<KatalogPage> {
           genres.map((genre) => MultiSelectItem<String>(genre, genre)).toList();
     });
   }
+
   Future<void> fetchUser(CookieRequest request) async {
     final response = await request.get('http://10.0.2.2:8000/auth/get-user/');
     _role = response['role'];
   }
+
   Future<List<Book>> fetchBooks(CookieRequest request) async {
     var queryParameters = {
       'search': _query,
       'genres': _selectedGenres,
     };
-    var uri = Uri.http(
-        '10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
+    var uri =
+        Uri.http('10.0.2.2:8000', '/katalog/get-books-genre/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -127,84 +129,83 @@ class _KatalogPageState extends State<KatalogPage> {
     final request = context.watch<CookieRequest>();
     Widget searchBar = _isSearching
         ? TextField(
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      cursorColor: Colors.white,
-      controller: _searchController,
-      autofocus: true,
-      decoration: InputDecoration(
-        hintText: 'Search books...',
-        hintStyle: TextStyle(color: Colors.white),
-        border: InputBorder.none,
-        prefixIcon: Icon(Icons.search, color: Colors.white),
-        suffixIcon: IconButton(
-          icon: Icon(Icons.clear, color: Colors.white),
-          onPressed: () {
-            _searchController.clear();
-            _updateSearchResults('');
-            setState(() {
-              _isSearching = false;
-            });
-          },
-        ),
-      ),
-      onChanged: (value) {
-        _updateSearchResults(value);
-      },
-    )
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            cursorColor: Colors.white,
+            controller: _searchController,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: 'Search books...',
+              hintStyle: TextStyle(color: Colors.white),
+              border: InputBorder.none,
+              prefixIcon: Icon(Icons.search, color: Colors.white),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.clear, color: Colors.white),
+                onPressed: () {
+                  _searchController.clear();
+                  _updateSearchResults('');
+                  setState(() {
+                    _isSearching = false;
+                  });
+                },
+              ),
+            ),
+            onChanged: (value) {
+              _updateSearchResults(value);
+            },
+          )
         : Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        ElevatedButton(
-          onPressed: () => _showMultiSelect(context),
-          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                'Select Genres',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              Icon(Icons.arrow_drop_down),
-            ],
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            side: BorderSide(color: Colors.grey),
-            padding: EdgeInsets.symmetric(horizontal: 55.0),
-          ),
-        ),
-        ElevatedButton(
-            onPressed: _startSearch,
-            child: Row(
-              children: <Widget>[
-                Text(
-                  'Search ',
-                  style: TextStyle(
-                      fontSize: 16.0), // Larger font size for button text
+              ElevatedButton(
+                onPressed: () => _showMultiSelect(context),
+                child: Row(
+                  children: const <Widget>[
+                    Text(
+                      'Select Genres',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    Icon(Icons.arrow_drop_down),
+                  ],
                 ),
-                Icon(Icons.search),
-              ],
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: Colors
-                  .white, // Match the background color to 'Select Genres' button
-              onPrimary: Colors
-                  .black, // Match the text color to 'Select Genres' button
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(30), // Rounded corners
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  side: BorderSide(color: Colors.grey),
+                  padding: EdgeInsets.symmetric(horizontal: 55.0),
+                ),
               ),
-              side: BorderSide(color: Colors.grey), // Add border
-              padding: EdgeInsets.symmetric(
-                  horizontal:
-                  14.0), // Horizontal padding inside the button
-            )),
-      ],
-    );
+              ElevatedButton(
+                  onPressed: _startSearch,
+                  child: Row(
+                    children: const <Widget>[
+                      Text(
+                        'Search ',
+                        style: TextStyle(
+                            fontSize: 16.0), // Larger font size for button text
+                      ),
+                      Icon(Icons.search),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors
+                        .white, // Match the text color to 'Select Genres' button
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(30), // Rounded corners
+                    ),
+                    side: BorderSide(color: Colors.grey), // Add border
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            14.0), // Horizontal padding inside the button
+                  )),
+            ],
+          );
     return Scaffold(
       drawer: LeftDrawer(),
       appBar: AppBar(
@@ -251,16 +252,17 @@ class _KatalogPageState extends State<KatalogPage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    book.fields.image,
-                                    height: 150,
-                                    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                                      // Handle rendering errors
-                                      return Image.network(
-                                        'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
-                                        fit: BoxFit.cover,
-                                        height: 150,
-                                      );
-                                    },
+                                  book.fields.image,
+                                  height: 150,
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    // Handle rendering errors
+                                    return Image.network(
+                                      'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                    );
+                                  },
                                 ), // Set desired image height
                                 Text(book.fields.description),
                               ],
@@ -280,8 +282,8 @@ class _KatalogPageState extends State<KatalogPage> {
                     color: book.fields.isDipinjam
                         ? Color(0xFFF08080)
                         : isSelected
-                        ? Color(0xFF87CEFA)
-                        : Colors.white,
+                            ? Color(0xFF87CEFA)
+                            : Colors.white,
                     child: ListTile(
                       title: Text(book.fields.name,
                           maxLines: 2,
@@ -297,7 +299,8 @@ class _KatalogPageState extends State<KatalogPage> {
                         fit: BoxFit.cover,
                         width: 50,
                         height: 200,
-                        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                        errorBuilder: (BuildContext context, Object error,
+                            StackTrace? stackTrace) {
                           // Handle rendering errors
                           return Image.network(
                             'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
@@ -313,19 +316,19 @@ class _KatalogPageState extends State<KatalogPage> {
               },
             ),
           ),
-          if(_role == 'admin')
-          SizedBox(height: 50),
+          if (_role == 'admin') SizedBox(height: 50),
         ],
       ),
-      floatingActionButton: _role == 'admin' ? FloatingActionButton(
-        onPressed: () {
-          // Add your desired action when the button is pressed
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => BookFormPage()));
-        },
-        child: Icon(Icons.add),
-      )
-      : null,
+      floatingActionButton: _role == 'admin'
+          ? FloatingActionButton(
+              onPressed: () {
+                // Add your desired action when the button is pressed
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BookFormPage()));
+              },
+              child: Icon(Icons.add),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

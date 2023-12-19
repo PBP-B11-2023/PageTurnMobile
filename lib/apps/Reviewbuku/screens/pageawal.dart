@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Reviewbuku/screens/addreview.dart';
 import 'package:pageturn_mobile/apps/Reviewbuku/screens/listreview.dart';
 import 'package:pageturn_mobile/components/left_drawer.dart';
-
 
 class HalamanPertama extends StatelessWidget {
   HalamanPertama({Key? key}) : super(key: key);
@@ -18,17 +19,17 @@ class HalamanPertama extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 78, 52, 16),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 78, 52, 16),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Align(
+          const Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Text(
                 'Review Buku',
                 textAlign: TextAlign.center,
@@ -60,10 +61,10 @@ class HalamanPertama extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ReviewForm()),
+                  MaterialPageRoute(builder: (context) => const ReviewForm()),
                 );
               },
-              child: Text('Add Review'),
+              child: const Text('Add Review'),
             ),
           ),
 
@@ -74,10 +75,10 @@ class HalamanPertama extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ReviewPage()),
+                  MaterialPageRoute(builder: (context) => const ReviewPage()),
                 );
               },
-              child: Text('Daftar Review'),
+              child: const Text('Daftar Review'),
             ),
           ),
         ],

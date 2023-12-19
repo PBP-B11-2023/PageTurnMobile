@@ -1,11 +1,13 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
 import 'package:pageturn_mobile/apps/Katalog/screens/katalog.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
+import 'package:pageturn_mobile/apps/Reviewbuku/screens/pageawal.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:pageturn_mobile/apps/Reviewbuku/screens/pageawal.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -18,7 +20,7 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          Container(
+          SizedBox(
             height: 190, // Set your desired height
             child: DrawerHeader(
               decoration: BoxDecoration(
@@ -29,7 +31,8 @@ class LeftDrawer extends StatelessWidget {
                   SizedBox(height: 35),
                   Image(
                     width: 1000,
-                    image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
+                    image: NetworkImage(
+                        "https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
                   ),
                 ],
               ),
@@ -103,7 +106,7 @@ class LeftDrawer extends StatelessWidget {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("$message"),
+                    content: Text(message),
                   ));
                 }
               } catch (e) {

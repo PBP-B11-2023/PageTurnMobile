@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
+
 import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/register.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -65,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           // Konten formulir login
           Center(
             // Center digunakan untuk memusatkan Container
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width *
                   0.85, // Container mengambil 85% lebar layar
               child: Column(
@@ -139,8 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                                 String username = _usernameController.text;
                                 String password = _passwordController.text;
 
-                                final response = await request.login(
-                                    "http://10.0.2.2:8000/auth/login/", {
+                                final response = await request
+                                    .login("http://10.0.2.2:8000/auth/login/", {
                                   'username': username,
                                   'password': password,
                                 });
@@ -188,10 +190,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary:
-                                    Colors.orange, // Warna background button
-                                onPrimary:
-                                    Colors.white, // Warna foreground button
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.orange, // Warna foreground button
                               ),
                             ),
                           ],

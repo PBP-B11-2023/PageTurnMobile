@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:pageturn_mobile/components/left_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -31,63 +35,59 @@ class _MyHomePageState extends State<MyHomePage> {
         favoriteBooks =
             List<Map<String, dynamic>>.from(data['favourite_books']);
       });
-    } else {
-      // Handle error
-      print('Failed to load favorite books');
     }
   }
 
   void nextBook() {
-
     setState(() {
       currentBookIndex = (currentBookIndex + 1) % favoriteBooks.length;
     });
   }
+
   void prevBook() {
     setState(() {
-      currentBookIndex = (currentBookIndex + favoriteBooks.length - 1) % favoriteBooks.length;
+      currentBookIndex =
+          (currentBookIndex + favoriteBooks.length - 1) % favoriteBooks.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: LeftDrawer(),
+      drawer: const LeftDrawer(),
       appBar: AppBar(
-        backgroundColor: Color(0xFF010101),
-        title: Image(
+        backgroundColor: const Color(0xFF010101),
+        title: const Image(
           width: 130,
-          image: NetworkImage("https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
+          image: NetworkImage(
+              "https://cdn.discordapp.com/attachments/1145315809846104065/1167315920117575700/page-turn-high-resolution-logo-transparent.png"),
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white, // Ganti warna sesuai keinginan Anda
         ),
-
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xFF010101), // Set the background color
+          color: const Color(0xFF010101), // Set the background color
           child: Column(
             children: <Widget>[
-              Container(
-                child: AspectRatio(
-                  aspectRatio: 16 / 9, // Set the aspect ratio as needed
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://cdn.discordapp.com/attachments/1183651745138737262/1183651902743912458/TopCover.png?ex=65891cbc&is=6576a7bc&hm=5bf21289566d85e7e0f1b44607f244b1924de6b914816614cf96ee79504bc5b4&', // Replace with the actual URL
-                        ),
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain, // Set to BoxFit.contain
+              AspectRatio(
+                aspectRatio: 16 / 9, // Set the aspect ratio as needed
+                child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://cdn.discordapp.com/attachments/1183651745138737262/1183651902743912458/TopCover.png?ex=65891cbc&is=6576a7bc&hm=5bf21289566d85e7e0f1b44607f244b1924de6b914816614cf96ee79504bc5b4&', // Replace with the actual URL
                       ),
+                      alignment: Alignment.center,
+                      fit: BoxFit.contain, // Set to BoxFit.contain
                     ),
                   ),
                 ),
               ),
-                if(favoriteBooks.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+              if (favoriteBooks.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
                   child: Text(
                     'Buku-buku favorit',
                     style: TextStyle(
@@ -97,12 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              if(favoriteBooks.isNotEmpty)
+              if (favoriteBooks.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(
                       top: 20, left: 16, right: 16), // Increase top padding
                   child: Card(
-                    color: Color(
+                    color: const Color(
                         0xFF010101), // Set the background color of the Card
                     elevation: 8, // Set the elevation as needed
                     child: Padding(
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 200, // Adjust the width as needed
                             height: 200, // Adjust the height as needed
                           ),
-                          SizedBox(
+                          const SizedBox(
                               width:
                                   16), // Add space between the book image and text
                           Expanded(
@@ -126,23 +126,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Text(
                                   favoriteBooks[currentBookIndex]
                                       ['name'], // Use 'name' for the book title
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
-                                SizedBox(height: 16),
-                                Container(
-                                  child: Text(
-                                    favoriteBooks[currentBookIndex][
-                                        'description'], // Use 'description' for the book description
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.white),
-                                    overflow: TextOverflow
-                                        .ellipsis, // Use ellipsis for long text
-                                    maxLines:
-                                        3, // Adjust the number of lines to show
-                                  ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  favoriteBooks[currentBookIndex][
+                                      'description'], // Use 'description' for the book description
+                                  style: const TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Use ellipsis for long text
+                                  maxLines:
+                                      3, // Adjust the number of lines to show
                                 ),
                                 if (favoriteBooks[currentBookIndex]
                                             ['description']
@@ -160,7 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             content: Text(
                                               favoriteBooks[currentBookIndex]
                                                   ['description'],
-                                              style: TextStyle(fontSize: 16),
+                                              style:
+                                                  const TextStyle(fontSize: 16),
                                             ),
                                             actions: <Widget>[
                                               TextButton(
@@ -168,14 +167,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   Navigator.of(context)
                                                       .pop(); // Close the dialog
                                                 },
-                                                child: Text('Close'),
+                                                child: const Text('Close'),
                                               ),
                                             ],
                                           );
                                         },
                                       );
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'Read More',
                                       style: TextStyle(color: Colors.blue),
                                     ),
@@ -188,28 +187,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              SizedBox(
-                  height:
-                      20), // Increase the sp
-              if(favoriteBooks.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: prevBook,
-                    child: Text('Prev Book'),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: nextBook,
-                    child: Text('Next Book'),
-                  )
-                ],
-              )// ace between the card and the button
+              const SizedBox(height: 20), // Increase the sp
+              if (favoriteBooks.isNotEmpty)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: prevBook,
+                      child: const Text('Prev Book'),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: nextBook,
+                      child: const Text('Next Book'),
+                    )
+                  ],
+                ) // ace between the card and the button
               ,
-              SizedBox(
+              const SizedBox(
                   height:
                       200), // Increase the space between the card and the button
             ],
