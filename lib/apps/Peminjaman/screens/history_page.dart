@@ -434,6 +434,15 @@ class _HistoryPageState extends State<HistoryPage> {
                               fit: BoxFit.cover,
                               width: 50,
                               height: 200,
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                // Handle rendering errors
+                                return Image.network(
+                                  'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                );
+                              },
                             ),
                           ),
                         ),
