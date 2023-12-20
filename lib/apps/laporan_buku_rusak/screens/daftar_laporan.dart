@@ -50,7 +50,7 @@ class _ListLaporanState extends State<ListLaporan> {
 
   Future<List<Book>> fetchBooks(CookieRequest request) async {
     final response1 =
-    await request.get('http://10.0.2.2:8000/katalog/get-book/');
+        await request.get('http://10.0.2.2:8000/katalog/get-book/');
     List<Book> allBooks = [];
     for (var d in response1) {
       if (d != null) {
@@ -66,8 +66,8 @@ class _ListLaporanState extends State<ListLaporan> {
       'search': _query,
       'genres': _selectedGenres,
     };
-    var uri =
-    Uri.http('10.0.2.2:8000', '/laporan_buku_rusak/get-laporan/', queryParameters);
+    var uri = Uri.http(
+        '10.0.2.2:8000', '/laporan_buku_rusak/get-laporan/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -76,7 +76,7 @@ class _ListLaporanState extends State<ListLaporan> {
       if (d != null) {
         Laporan item = Laporan.fromJson(d);
         Book? book =
-        _allBooks.firstWhere((book) => book.pk == item.fields.book);
+            _allBooks.firstWhere((book) => book.pk == item.fields.book);
         if (!listBooks.contains(book)) listBooks.add(book);
         listPeminjaman.add(item);
       }
@@ -99,12 +99,12 @@ class _ListLaporanState extends State<ListLaporan> {
         return Theme(
           data: Theme.of(context).copyWith(
             dialogBackgroundColor:
-            Colors.white, // Ensuring dialog background is white
+                Colors.white, // Ensuring dialog background is white
             colorScheme: ColorScheme.dark(
               // Pastikan skema warna gelap
               primary: Colors.white, // Warna utama dalam dialog
               onPrimary:
-              Colors.white, // Warna untuk teks dan ikon pada primaryColor
+                  Colors.white, // Warna untuk teks dan ikon pada primaryColor
               surface: Colors.black87, // Warna permukaan komponen
               onSurface: Colors.white, // Warna teks dan ikon pada surface
               // secondary: Colors.white, // Warna aksen atau sekunder
@@ -112,7 +112,7 @@ class _ListLaporanState extends State<ListLaporan> {
           ),
           child: MultiSelectDialog(
             backgroundColor:
-            Colors.white, // Set your desired background color here
+                Colors.white, // Set your desired background color here
             items: items,
             initialValue: _selectedGenres,
             onConfirm: (values) {
@@ -178,7 +178,6 @@ class _ListLaporanState extends State<ListLaporan> {
     fetchPeminjaman(request);
   }
 
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -200,129 +199,131 @@ class _ListLaporanState extends State<ListLaporan> {
           Expanded(
             child: _booksList.isEmpty
                 ? _selectedGenres.length > 0 &&
-                _selectedGenres.length < _genresItems.length
-                ? Center(
-              child: Text(
-                "Kamu belum pernah\nmeminjam buku apapun\ndengan genre tersebut.",
-                textAlign: TextAlign.center, // Align text to center
-                style: TextStyle(
-                  fontSize: 28, // Adjust the font size as needed
-                  fontWeight: FontWeight.bold, // Bold text
-                  color: Colors.grey, // Optional: for grey text color
-                ),
-              ),
-            )
-                : Center(
-              child: Text(
-                "Kamu belum pernah\nmeminjam buku apapun.",
-                textAlign: TextAlign.center, // Align text to center
-                style: TextStyle(
-                  fontSize: 28, // Adjust the font size as needed
-                  fontWeight: FontWeight.bold, // Bold text
-                  color: Colors.grey, // Optional: for grey text color
-                ),
-              ),
-            )
+                        _selectedGenres.length < _genresItems.length
+                    ? Center(
+                        child: Text(
+                          "Kamu belum pernah\nmeminjam buku apapun\ndengan genre tersebut.",
+                          textAlign: TextAlign.center, // Align text to center
+                          style: TextStyle(
+                            fontSize: 28, // Adjust the font size as needed
+                            fontWeight: FontWeight.bold, // Bold text
+                            color: Colors.grey, // Optional: for grey text color
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          "Kamu belum pernah\nmeminjam buku apapun.",
+                          textAlign: TextAlign.center, // Align text to center
+                          style: TextStyle(
+                            fontSize: 28, // Adjust the font size as needed
+                            fontWeight: FontWeight.bold, // Bold text
+                            color: Colors.grey, // Optional: for grey text color
+                          ),
+                        ),
+                      )
                 : ListView.builder(
-              itemCount: _booksList.length,
-              itemBuilder: (context, index) {
-                Book book = _booksList[index];
-                bool isSelected = _selectedBooks.contains(book.pk);
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedBooks.clear();
-                      _selectedBooks.add(book.pk);
-                      _dipinjam = _peminjamanList
-                          .where((item) => item.fields.book == book.pk)
-                          .toList();
-                    });
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Color(0xff282626),
-                          surfaceTintColor: Colors.transparent,
-                          title: Text(
-                            book.fields.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18, // Adjust the font size
-                              fontWeight:
-                              FontWeight.bold, // Make the title bold
-                            ),
-                          ),
-                          content: SingleChildScrollView(
-                            child:  ListBody(
-                            children: <Widget>[
-                              for(int i=0; i<_dipinjam.length; i++)
-                              Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Judul Laporan: ${_dipinjam[i].fields.name}.',
-                                    style: TextStyle(
-                                        color: Colors.white),
+                    itemCount: _booksList.length,
+                    itemBuilder: (context, index) {
+                      Book book = _booksList[index];
+                      bool isSelected = _selectedBooks.contains(book.pk);
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedBooks.clear();
+                            _selectedBooks.add(book.pk);
+                            _dipinjam = _peminjamanList
+                                .where((item) => item.fields.book == book.pk)
+                                .toList();
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Color(0xff282626),
+                                surfaceTintColor: Colors.transparent,
+                                title: Text(
+                                  book.fields.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18, // Adjust the font size
+                                    fontWeight:
+                                        FontWeight.bold, // Make the title bold
                                   ),
-                                  Text(
-                                    'Deskripsi Laporan: ${_dipinjam[i].fields.description}.',
-                                    style: TextStyle(
-                                        color: Colors.white),
-                                    ),
-                                  SizedBox(height: 10,),
-                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: const Text(
-                                'OK',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    color: isSelected ? Color(0xFF87CEFA) : Colors.white,
-                    child: ListTile(
-                      title: Text(
-                        book.fields.name,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        book.fields.author,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      leading: Image.network(
-                        book.fields.image,
-                        fit: BoxFit.cover,
-                        width: 50,
-                        height: 200,
-                        errorBuilder: (BuildContext context, Object error,
-                            StackTrace? stackTrace) {
-                          // Handle rendering errors
-                          return Image.network(
-                            'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
-                            fit: BoxFit.cover,
-                            height: 150,
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      for (int i = 0; i < _dipinjam.length; i++)
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Judul Laporan: ${_dipinjam[i].fields.name}.',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              'Deskripsi Laporan: ${_dipinjam[i].fields.description}.',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text(
+                                      'OK',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
-                      ),
-                    ),
+                        child: Container(
+                          color: isSelected ? Color(0xFF87CEFA) : Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              book.fields.name,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              book.fields.author,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            leading: Image.network(
+                              book.fields.image,
+                              fit: BoxFit.cover,
+                              width: 50,
+                              height: 200,
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                // Handle rendering errors
+                                return Image.network(
+                                  'https://cdn.discordapp.com/attachments/1049115719306051644/1186325973268975716/nope-not-here.png?ex=6592d728&is=65806228&hm=ed928cadb7e25d1ac275f43953b9498ca39557ddfffaa82b07443810b4c3caac&',
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),
