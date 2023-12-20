@@ -14,7 +14,7 @@ Link APP: https://install.appcenter.ms/orgs/pbp-irfan/apps/pageturn/distribution
 
 ## Deskripsi Aplikasi
 
-Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna untuk mengakses ratusan e-book dalam satu platform, menghemat waktu dalam mencari dan mengelola buku-buku mereka. Pengguna dapat melihat homepage yang berisi rekomendasi buku berdasarkan banyak peminjaman dari buku tersebut. Terdapat pula katalog buku yang berisikan daftar semua buku beserta informasinya. Admin dapat menambahkan buku ke dalam katalog. Pengguna juga dapat merequest buku yang ingin ditambahkan. pengguna juga dapat melakukan peminjaman terhadap buku, dan mengembalikannya. Buku yang telah dipinjam dapat direview dan juga dilaporkan apabila terdapat kerusakan.
+Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna untuk mengakses ratusan e-book dalam satu platform, menghemat waktu dalam mencari dan mengelola buku-buku mereka. Pengguna dapat melihat homepage yang berisi rekomendasi buku berdasarkan banyak peminjaman dari buku tersebut. Terdapat pula katalog buku yang berisikan daftar semua buku beserta informasinya. Admin dapat menambahkan buku ke dalam katalog. Pengguna juga dapat merequest buku yang ingin ditambahkan. pengguna juga dapat melakukan peminjaman terhadap buku, mengembalikannya, dan melihat history buku yang telah dipinjam. Buku yang telah dipinjam dapat direview dan juga dilaporkan apabila terdapat kerusakan.
 
 ## Modul Aplikasi
 
@@ -23,7 +23,7 @@ Aplikasi mobile PageTurn merupakan perpustakaan digital yang memudahkan pengguna
 - Modul Homepage megimplementasikan sebuah halaman homepage yang menjadi landing page para user dan menampilkan koleksi buku favorit yang paling sering dipinjam : Faiz 
 - Modul Katalog Buku yang mengimplementasikan informasi dari setiap buku (Nama buku, Penulis, Rating, Genre, Tahun terbit, dll) : Arya
 - Modul Request Buku yang mengimplementasikan request buku yang ingin di pinjam namun tidak terdapat di katalog : Fern
-- Modul Peminjaman Buku yang mengimplementasikan Buku yang ingin dipinjam atau dikembalikan : Irfan
+- Modul Peminjaman Buku yang mengimplementasikan Buku yang ingin dipinjam atau dikembalikan dan juga history peminjaman : Irfan
 - Modul Review/ulasan Buku yang mengimplementasikan review dari pembaca buku : Irsyad
 - Modul Laporan buku rusak yang mengimplementasikan detail informasi buku yang rusak (nama buku dan alasan rusak) : Rifdah
 
