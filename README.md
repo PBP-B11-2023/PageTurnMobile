@@ -1,4 +1,7 @@
+[![Build status](https://build.appcenter.ms/v0.1/apps/8f7c9767-5048-41e8-b4ac-da318c7d5177/branches/main/badge)
 # PageTurnMobile
+Link APP: https://install.appcenter.ms/orgs/pbp-irfan/apps/pageturn/distribution_groups/public/releases/2
+
 
 ## Nama Anggota Kelompok
 
