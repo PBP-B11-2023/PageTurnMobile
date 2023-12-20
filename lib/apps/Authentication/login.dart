@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, library_private_types_in_public_api, prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
+
 import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
@@ -65,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           // Konten formulir login
           Center(
             // Center digunakan untuk memusatkan Container
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width *
                   0.85, // Container mengambil 85% lebar layar
               child: Column(
@@ -140,10 +142,11 @@ class _LoginPageState extends State<LoginPage> {
                                 String password = _passwordController.text;
 
                                 final response = await request.login(
-                                    "http://10.0.2.2:8000/auth/login/", {
-                                  'username': username,
-                                  'password': password,
-                                });
+                                    "https://pageturn-b11-tk.pbp.cs.ui.ac.id/auth/login/",
+                                    {
+                                      'username': username,
+                                      'password': password,
+                                    });
 
                                 if (request.loggedIn) {
                                   String message = response['message'];
@@ -188,10 +191,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary:
-                                    Colors.orange, // Warna background button
-                                onPrimary:
-                                    Colors.white, // Warna foreground button
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.orange, // Warna foreground button
                               ),
                             ),
                           ],

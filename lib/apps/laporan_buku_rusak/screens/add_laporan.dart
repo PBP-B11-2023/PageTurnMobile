@@ -1,13 +1,13 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_final_fields, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, prefer_final_fields, use_build_context_synchronously, unused_field, unused_element
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:pageturn_mobile/apps/Katalog/models/book.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/models/peminjaman.dart';
 import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/halaman_awal.dart';
-import 'package:pageturn_mobile/book.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,6 @@ class LaporanForm extends StatefulWidget {
 }
 
 class _LaporanFormState extends State<LaporanForm> {
-  Peminjaman? _dipinjam;
   int _selectedIndex = 1;
   bool _isSearching = false;
   TextEditingController _searchController = TextEditingController();
@@ -32,7 +31,8 @@ class _LaporanFormState extends State<LaporanForm> {
   List<MultiSelectItem<String>> _genresItems = [];
 
   Future<void> _loadGenres() async {
-    var url = Uri.parse('http://10.0.2.2:8000/katalog/get-genres/');
+    var url = Uri.parse(
+        'https://pageturn-b11-tk.pbp.cs.ui.ac.id/katalog/get-genres/');
     var response = await http.get(url);
     var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
     List<String> genres = List<String>.from(jsonResponse['genres']);
@@ -43,8 +43,8 @@ class _LaporanFormState extends State<LaporanForm> {
   }
 
   Future<List<Book>> fetchBooks(CookieRequest request) async {
-    final response1 =
-        await request.get('http://10.0.2.2:8000/katalog/get-book/');
+    final response1 = await request
+        .get('https://pageturn-b11-tk.pbp.cs.ui.ac.id/katalog/get-book/');
     List<Book> allBooks = [];
     for (var d in response1) {
       if (d != null) {
@@ -60,8 +60,8 @@ class _LaporanFormState extends State<LaporanForm> {
       'search': _query,
       'genres': _selectedGenres,
     };
-    var uri =
-        Uri.http('10.0.2.2:8000', '/peminjaman/get-items/', queryParameters);
+    var uri = Uri.https('pageturn-b11-tk.pbp.cs.ui.ac.id',
+        '/peminjaman/get-items/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -187,7 +187,12 @@ class _LaporanFormState extends State<LaporanForm> {
       ),
       body: Column(
         children: [
-          Text("Buku yang sedang dipinjam:"),
+          const Text(
+            "Buku yang sedang dipinjam:",
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
           // Books list
           Expanded(
             child: _booksList.isEmpty
@@ -229,10 +234,6 @@ class _LaporanFormState extends State<LaporanForm> {
                             } else {
                               _selectedBooks.clear();
                               _selectedBooks.add(book.pk);
-                              _dipinjam = _peminjamanList.firstWhere((item) =>
-                                      item.fields.book ==
-                                      book.pk // Add this to handle the case where no match is found
-                                  );
                             }
                           });
                         },
@@ -298,14 +299,14 @@ class _LaporanFormState extends State<LaporanForm> {
                         backgroundColor: const Color(0xff282626),
                         surfaceTintColor: Colors.transparent,
                         title: const Text(
-                          'Konfirmasi Pengembalian',
+                          'Konfirmasi Laporan',
                           style: TextStyle(color: Colors.white),
                         ),
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: <Widget>[
                               const Text(
-                                'Buku yang ingin dikembalikan:',
+                                'Buku yang ingin dilaporkan:',
                                 style: TextStyle(color: Colors.white),
                               ),
                               const SizedBox(
@@ -322,27 +323,27 @@ class _LaporanFormState extends State<LaporanForm> {
                                 onChanged: (value) {
                                   judul = value;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Ketik judul laporan',
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
                                   ),
                                 ),
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               TextField(
                                 onChanged: (value) {
                                   deskripsi = value;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Ketik deskripsi laporan',
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
                                   ),
                                 ),
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -368,7 +369,7 @@ class _LaporanFormState extends State<LaporanForm> {
                             onPressed: () async {
                               // Implement your logic to process the loan here
                               final response = await request.post(
-                                  "http://10.0.2.2:8000/laporan_buku_rusak/add-laporan/",
+                                  "https://pageturn-b11-tk.pbp.cs.ui.ac.id/laporan_buku_rusak/add-laporan/",
                                   {
                                     'judul': judul,
                                     'deskripsi': deskripsi,
@@ -380,7 +381,7 @@ class _LaporanFormState extends State<LaporanForm> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      backgroundColor: Color(0xff282626),
+                                      backgroundColor: const Color(0xff282626),
                                       surfaceTintColor: Colors.transparent,
                                       title: const Text(
                                         'Status',
@@ -391,7 +392,7 @@ class _LaporanFormState extends State<LaporanForm> {
                                           children: <Widget>[
                                             Text(
                                               '${response['message']}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white),
                                             ),
                                           ],

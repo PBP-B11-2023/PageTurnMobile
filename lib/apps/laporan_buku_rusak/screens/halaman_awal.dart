@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/add_laporan.dart';
 import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/daftar_laporan.dart';
@@ -20,16 +22,16 @@ class HalamanLaporan extends StatelessWidget {
           ),
         ),
         backgroundColor: const Color(0xFF282626),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Align(
+          const Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Text(
                 'Laporan Buku Rusak',
                 textAlign: TextAlign.center,
@@ -48,10 +50,10 @@ class HalamanLaporan extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LaporanForm()),
+                  MaterialPageRoute(builder: (context) => const LaporanForm()),
                 );
               },
-              child: Text('Add Laporan'),
+              child: const Text('Add Laporan'),
             ),
           ),
 
@@ -61,10 +63,10 @@ class HalamanLaporan extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ListLaporan()),
+                  MaterialPageRoute(builder: (context) => const ListLaporan()),
                 );
               },
-              child: Text('List Laporan'),
+              child: const Text('List Laporan'),
             ),
           ),
         ],

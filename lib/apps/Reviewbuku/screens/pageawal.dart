@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Reviewbuku/screens/addreview.dart';
 import 'package:pageturn_mobile/apps/Reviewbuku/screens/listreview.dart';
 import 'package:pageturn_mobile/components/left_drawer.dart';
-
 
 class HalamanPertama extends StatelessWidget {
   HalamanPertama({Key? key}) : super(key: key);
@@ -13,71 +14,66 @@ class HalamanPertama extends StatelessWidget {
       drawer: const LeftDrawer(),
       appBar: AppBar(
         title: const Text(
-          'PAGETURN',
+          ' REVIEW BUKU ',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 78, 52, 16),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 78, 52, 16),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          const SizedBox(height: 20),
           Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Text(
-                'Review Buku',
-                textAlign: TextAlign.center,
+            alignment: Alignment.center,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ReviewForm()),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 255, 152, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              ),
+              child: const Text(
+                'Add Review',
                 style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 20,
+                  color: Colors.white, // Warna teks putih
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-
-          // Container(
-          //   alignment: Alignment.centerLeft,
-          //   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
-          //   child: Text(
-          //     'List Buku yang akan direview:',
-          //     style: TextStyle(
-          //       fontSize: 18,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(height: 20),
-
-          // Add review
+          const SizedBox(height: 10),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
+            alignment: Alignment.center,
+            child: TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ReviewForm()),
+                  MaterialPageRoute(builder: (context) => const ReviewPage()),
                 );
               },
-              child: Text('Add Review'),
-            ),
-          ),
-
-          // Add Daftar
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReviewPage()),
-                );
-              },
-              child: Text('Daftar Review'),
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 255, 152, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              ),
+              child: const Text(
+                'Daftar Review',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white, // Warna teks putih
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],

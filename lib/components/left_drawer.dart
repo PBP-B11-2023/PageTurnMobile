@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
 import 'package:pageturn_mobile/apps/Katalog/screens/katalog.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
+import 'package:pageturn_mobile/apps/Request/screens/request_page.dart';
 import 'package:pageturn_mobile/apps/Reviewbuku/screens/pageawal.dart';
 import 'package:pageturn_mobile/apps/laporan_buku_rusak/screens/halaman_awal.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -15,11 +18,11 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Drawer(
-      backgroundColor: Color(0xFFffecd4),
+      backgroundColor: const Color(0xFFffecd4),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          Container(
+          const SizedBox(
             height: 190, // Set your desired height
             child: DrawerHeader(
               decoration: BoxDecoration(
@@ -45,7 +48,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
+                    builder: (context) => const MyHomePage(),
                   ));
             },
           ),
@@ -74,7 +77,7 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
+            leading: const Icon(Icons.rate_review),
             title: const Text('Review Buku'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
@@ -86,20 +89,8 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Review Buku'),
-            // Bagian redirection ke ShopFormPage
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HalamanPertama(),
-                  ));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Laporan Buku'),
+            leading: const Icon(Icons.report_problem),
+            title: const Text('Laporan Buku Rusak'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
               Navigator.push(
@@ -110,12 +101,23 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.question_mark_rounded),
+            title: const Text('Request Buku'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RequestPage(),
+                  ));
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () async {
               try {
                 final response =
-                    await request.logout("http://10.0.2.2:8000/auth/logout/");
+                    await request.logout("https://pageturn-b11-tk.pbp.cs.ui.ac.id/auth/logout/");
 
                 String message = response["message"];
                 if (response['status']) {
@@ -129,7 +131,7 @@ class LeftDrawer extends StatelessWidget {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("$message"),
+                    content: Text(message),
                   ));
                 }
               } catch (e) {

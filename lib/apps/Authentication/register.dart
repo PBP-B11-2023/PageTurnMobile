@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, unused_local_variable, library_private_types_in_public_api
+
 import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pageturn_mobile/apps/Authentication/login.dart';
-import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
           // Konten formulir login
           Center(
             // Center digunakan untuk memusatkan Container
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width *
                   0.85, // Container mengambil 85% lebar layar
               child: Column(
@@ -85,11 +86,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       controller: _usernameController,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Username",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -102,12 +104,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       obscureText: true,
                       controller: _password1Controller,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -120,12 +123,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
                     child: TextField(
                       obscureText: true,
                       controller: _password2Controller,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
                         labelText: "Confirm Password",
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
@@ -138,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   // _buildTextField(label: 'Password', isPassword: true),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Column(
                     mainAxisSize: MainAxisSize
                         .min, // Mengambil ukuran minimum yang dibutuhkan oleh anak-anaknya
@@ -159,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (username.isEmpty) {
                                   // Tampilkan pesan error untuk username
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Username tidak boleh kosong")),
                                   );
@@ -169,18 +173,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (password1.isEmpty) {
                                   // Tampilkan pesan error untuk password
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Password tidak boleh kosong")),
                                   );
                                   return; // Hentikan fungsi jika password kosong
                                 }
                                 final response = await request.post(
-                                    "http://10.0.2.2:8000/auth/register/", {
-                                  'username': username,
-                                  'password1': password1,
-                                  'password2': password2,
-                                });
+                                    "https://pageturn-b11-tk.pbp.cs.ui.ac.id/auth/register/",
+                                    {
+                                      'username': username,
+                                      'password1': password1,
+                                      'password2': password2,
+                                    });
                                 bool status = response['status'];
                                 if (status) {
                                   _usernameController.clear();
@@ -206,9 +211,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginApp()),
+                                        builder: (context) => const LoginApp()),
                                   );
-
                                 } else {
                                   _usernameController.clear();
                                   _password1Controller.clear();
@@ -230,8 +234,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   );
                                 }
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.orange, // Warna foreground button
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
                                     horizontal: 8.0,
                                     vertical: 8.0), // Penyesuaian padding
                                 child: Text(
@@ -240,12 +249,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                       fontSize:
                                           16), // Ukuran teks bisa disesuaikan
                                 ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                primary:
-                                    Colors.orange, // Warna background button
-                                onPrimary:
-                                    Colors.white, // Warna foreground button
                               ),
                             ),
                           ],
@@ -258,17 +261,17 @@ class _RegisterPageState extends State<RegisterPage> {
                           alignment: Alignment.center,
                           child: RichText(
                             text: TextSpan(
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white, // Gaya default untuk teks
                               ),
                               children: <TextSpan>[
-                                TextSpan(
+                                const TextSpan(
                                   text:
                                       "Already have an account? ", // Teks biasa
                                 ),
                                 TextSpan(
                                   text: 'Login',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors
                                         .orange, // Gaya untuk teks yang dapat diklik
                                   ),

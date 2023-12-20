@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_local_variable, library_private_types_in_public_api, prefer_final_fields, curly_braces_in_flow_control_structures, prefer_const_constructors, unused_element, sort_child_properties_last, prefer_is_empty
+// ignore_for_file: unused_import, unused_local_variable, library_private_types_in_public_api, prefer_final_fields, curly_braces_in_flow_control_structures, prefer_const_constructors, unused_element, sort_child_properties_last, prefer_is_empty, unused_field
 
 import 'dart:convert';
 
@@ -7,11 +7,11 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pageturn_mobile/apps/Homepage/menu.dart';
+import 'package:pageturn_mobile/apps/Katalog/models/book.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/models/peminjaman.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/peminjaman_page.dart';
 import 'package:pageturn_mobile/apps/Peminjaman/screens/pengembalian_page.dart';
 import 'package:pageturn_mobile/apps/laporan_buku_rusak/models/laporan.dart';
-import 'package:pageturn_mobile/book.dart';
 import 'package:pageturn_mobile/components/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +38,8 @@ class _ListLaporanState extends State<ListLaporan> {
   List<MultiSelectItem<String>> _genresItems = [];
 
   Future<void> _loadGenres() async {
-    var url = Uri.parse('http://10.0.2.2:8000/katalog/get-genres/');
+    var url = Uri.parse(
+        'https://pageturn-b11-tk.pbp.cs.ui.ac.id/katalog/get-genres/');
     var response = await http.get(url);
     var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
     List<String> genres = List<String>.from(jsonResponse['genres']);
@@ -49,8 +50,8 @@ class _ListLaporanState extends State<ListLaporan> {
   }
 
   Future<List<Book>> fetchBooks(CookieRequest request) async {
-    final response1 =
-        await request.get('http://10.0.2.2:8000/katalog/get-book/');
+    final response1 = await request
+        .get('https://pageturn-b11-tk.pbp.cs.ui.ac.id/katalog/get-book/');
     List<Book> allBooks = [];
     for (var d in response1) {
       if (d != null) {
@@ -66,8 +67,8 @@ class _ListLaporanState extends State<ListLaporan> {
       'search': _query,
       'genres': _selectedGenres,
     };
-    var uri = Uri.http(
-        '10.0.2.2:8000', '/laporan_buku_rusak/get-laporan/', queryParameters);
+    var uri = Uri.https('pageturn-b11-tk.pbp.cs.ui.ac.id',
+        '/laporan_buku_rusak/get-laporan/', queryParameters);
 
     final response = await request.get(uri.toString());
     List<Book> listBooks = [];
@@ -184,7 +185,7 @@ class _ListLaporanState extends State<ListLaporan> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'History Peminjaman Buku',
+          'Daftar Laporan Buku Rusak',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.0, // Larger  font size for the title
